@@ -1,287 +1,64 @@
+/* ================================
+   GLOBAL
+================================ */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary: #176B4D;
-    --primary-dark: #11543C;
-    --light-green: #EAF5F0;
-    --background: #F7FAF8;
-    --dark-text: #18352B;
-    --muted-text: #718078;
-    --white: #FFFFFF;
+
+html {
+    scroll-behavior: smooth;
 }
+
 
 body {
     min-height: 100vh;
+
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
         Arial,
         sans-serif;
 
-    background: var(--background);
-    color: var(--dark-text);
+    background:
+        linear-gradient(
+            135deg,
+            #f7faf8,
+            #eef8f3
+        );
+
+    color: #18352B;
 
     overflow-x: hidden;
 }
 
-/* ==============================
+
+/* ================================
    PAGE
-============================== */
+================================ */
 
 .page {
     min-height: 100vh;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
 
-    padding: 55px 20px 25px;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
 
     position: relative;
+
     z-index: 2;
 }
 
-/* ==============================
-   BRAND
-============================== */
 
-.brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin-bottom: 30px;
-}
-
-.logo {
-    width: 72px;
-    height: 72px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--light-green);
-
-    border-radius: 24px;
-
-    font-size: 34px;
-
-    box-shadow:
-        0 10px 30px rgba(23, 107, 77, 0.12);
-
-    margin-bottom: 14px;
-}
-
-.brand h1 {
-    font-size: 28px;
-    font-weight: 750;
-
-    letter-spacing: -0.6px;
-
-    color: var(--primary);
-}
-
-/* ==============================
-   DOWNLOAD CARD
-============================== */
-
-.download-card {
-    width: 100%;
-    max-width: 420px;
-
-    background: var(--white);
-
-    border-radius: 32px;
-
-    padding: 34px 25px 28px;
-
-    text-align: center;
-
-    box-shadow:
-        0 18px 50px rgba(24, 53, 43, 0.10);
-}
-
-/* ==============================
-   APP ICON
-============================== */
-
-.app-icon {
-    width: 82px;
-    height: 82px;
-
-    margin: 0 auto 22px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--primary);
-
-    border-radius: 25px;
-
-    font-size: 38px;
-
-    box-shadow:
-        0 12px 25px rgba(23, 107, 77, 0.22);
-}
-
-/* ==============================
-   TEXT
-============================== */
-
-.download-card h2 {
-    font-size: 24px;
-    line-height: 1.25;
-
-    margin-bottom: 12px;
-
-    color: var(--dark-text);
-}
-
-.subtitle {
-    color: var(--muted-text);
-
-    font-size: 15px;
-    line-height: 1.6;
-
-    margin-bottom: 28px;
-}
-
-/* ==============================
-   DOWNLOAD BUTTON
-============================== */
-
-.download-btn {
-    width: 100%;
-
-    min-height: 58px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    background: var(--primary);
-    color: white;
-
-    text-decoration: none;
-
-    border-radius: 18px;
-
-    font-size: 17px;
-    font-weight: 700;
-
-    box-shadow:
-        0 10px 24px rgba(23, 107, 77, 0.22);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.download-btn:hover {
-    background: var(--primary-dark);
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 14px 30px rgba(23, 107, 77, 0.28);
-}
-
-.download-btn:active {
-    transform: scale(0.98);
-}
-
-.download-icon {
-    font-size: 24px;
-    font-weight: 400;
-}
-
-/* ==============================
-   ANDROID TEXT
-============================== */
-
-.android-text {
-    margin-top: 13px;
-
-    font-size: 12px;
-
-    color: var(--muted-text);
-}
-
-/* ==============================
-   DIVIDER
-============================== */
-
-.divider {
-    height: 1px;
-
-    background: #E8EEEB;
-
-    margin: 25px 0 18px;
-}
-
-/* ==============================
-   LANGUAGE
-============================== */
-
-.language {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 10px;
-
-    font-size: 13px;
-
-    color: #A0AAA5;
-}
-
-.language button {
-    border: none;
-
-    background: transparent;
-
-    color: var(--muted-text);
-
-    font-size: 13px;
-
-    cursor: pointer;
-
-    padding: 4px 6px;
-}
-
-.language button.active {
-    color: var(--primary);
-
-    font-weight: 700;
-}
-
-/* ==============================
-   FOOTER
-============================== */
-
-footer {
-    margin-top: 25px;
-
-    color: var(--muted-text);
-
-    font-size: 12px;
-}
-
-/* ==============================
+/* ================================
    BACKGROUND BUBBLES
-============================== */
+================================ */
 
 .bubble {
     position: fixed;
@@ -294,91 +71,529 @@ footer {
 
     filter: blur(1px);
 
-    animation: float 8s ease-in-out infinite;
+    opacity: 0.45;
+
+    animation:
+        floatBubble 8s ease-in-out infinite;
 }
 
+
 .bubble-1 {
+    width: 220px;
+    height: 220px;
+
+    background: #d6eee4;
+
+    top: -70px;
+    left: -60px;
+}
+
+
+.bubble-2 {
     width: 180px;
     height: 180px;
 
-    background: rgba(23, 107, 77, 0.07);
-
-    top: -60px;
-    left: -70px;
-}
-
-.bubble-2 {
-    width: 140px;
-    height: 140px;
-
-    background: rgba(96, 170, 135, 0.08);
+    background: #c8e7da;
 
     right: -50px;
-    top: 25%;
+    top: 15%;
 
     animation-delay: 1.5s;
 }
 
+
 .bubble-3 {
-    width: 220px;
-    height: 220px;
+    width: 140px;
+    height: 140px;
 
-    background: rgba(23, 107, 77, 0.045);
+    background: #e0f2eb;
 
-    left: -100px;
-    bottom: -80px;
+    left: 5%;
+    bottom: 12%;
 
     animation-delay: 3s;
 }
 
+
 .bubble-4 {
-    width: 110px;
-    height: 110px;
+    width: 250px;
+    height: 250px;
 
-    background: rgba(105, 180, 148, 0.07);
+    background: #d9eee6;
 
-    right: -35px;
-    bottom: 15%;
+    right: -90px;
+    bottom: -90px;
 
-    animation-delay: 4.5s;
+    animation-delay: 2s;
 }
 
-@keyframes float {
 
-    0%,
-    100% {
-        transform: translateY(0);
+.bubble-5 {
+    width: 90px;
+    height: 90px;
+
+    background: #bfe2d2;
+
+    left: 45%;
+    top: 8%;
+
+    animation-delay: 4s;
+}
+
+
+@keyframes floatBubble {
+
+    0% {
+        transform: translateY(0px);
     }
 
     50% {
         transform: translateY(-18px);
     }
+
+    100% {
+        transform: translateY(0px);
+    }
+
 }
 
-/* ==============================
-   SMALL PHONES
-============================== */
 
-@media (max-width: 360px) {
+/* ================================
+   BRAND
+================================ */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+
+    animation: fadeDown 0.7s ease;
+}
+
+
+.logo {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #176B4D;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 22px rgba(23, 107, 77, 0.18);
+}
+
+
+.brand h1 {
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #176B4D;
+
+    letter-spacing: -0.5px;
+}
+
+
+/* ================================
+   DOWNLOAD CARD
+================================ */
+
+.download-card {
+    width: 100%;
+
+    max-width: 470px;
+
+    padding: 42px 34px 32px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border: 1px solid rgba(23, 107, 77, 0.08);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 20px 55px rgba(23, 107, 77, 0.12);
+
+    backdrop-filter: blur(12px);
+
+    animation: fadeUp 0.8s ease;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ================================
+   APP ICON
+================================ */
+
+.app-icon {
+    width: 86px;
+    height: 86px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #176B4D,
+            #218a63
+        );
+
+    font-size: 42px;
+
+    box-shadow:
+        0 14px 30px rgba(23, 107, 77, 0.22);
+}
+
+
+/* ================================
+   TITLE
+================================ */
+
+.download-card h2 {
+    font-size: 27px;
+
+    line-height: 1.25;
+
+    color: #18352B;
+
+    margin-bottom: 14px;
+}
+
+
+/* ================================
+   DESCRIPTION
+================================ */
+
+.subtitle {
+    max-width: 380px;
+
+    margin: 0 auto;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #718078;
+}
+
+
+/* ================================
+   DOWNLOAD BUTTON
+================================ */
+
+.download-btn {
+    margin-top: 28px;
+
+    width: 100%;
+
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+
+    border-radius: 17px;
+
+    background: #176B4D;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 25px rgba(23, 107, 77, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.download-btn:hover {
+    background: #12583f;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(23, 107, 77, 0.28);
+}
+
+
+.download-btn:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 7px 15px rgba(23, 107, 77, 0.2);
+}
+
+
+.download-icon {
+    font-size: 25px;
+
+    line-height: 1;
+
+    font-weight: 400;
+}
+
+
+/* ================================
+   ANDROID TEXT
+================================ */
+
+.android-text {
+    margin-top: 13px;
+
+    font-size: 13px;
+
+    color: #8a9690;
+}
+
+
+/* ================================
+   DIVIDER
+================================ */
+
+.divider {
+    width: 100%;
+
+    height: 1px;
+
+    margin: 27px 0 20px;
+
+    background: #e3ebe7;
+}
+
+
+/* ================================
+   LANGUAGE
+================================ */
+
+.language {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 14px;
+
+    color: #a0aaa5;
+}
+
+
+.language button {
+    border: none;
+
+    background: transparent;
+
+    padding: 5px 2px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    color: #7b8781;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.language button:hover {
+    color: #176B4D;
+}
+
+
+.language button.active {
+    color: #176B4D;
+
+    font-weight: 700;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    margin-top: 22px;
+
+    font-size: 13px;
+
+    color: #8a9690;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
 
     .page {
-        padding: 35px 15px 20px;
+        padding:
+            25px 16px;
     }
+
+
+    .brand {
+        margin-bottom: 20px;
+    }
+
 
     .brand h1 {
-        font-size: 25px;
+        font-size: 24px;
     }
+
+
+    .logo {
+        width: 43px;
+        height: 43px;
+
+        border-radius: 13px;
+
+        font-size: 22px;
+    }
+
 
     .download-card {
-        padding: 28px 20px 24px;
-        border-radius: 27px;
+        padding:
+            34px 22px 27px;
+
+        border-radius: 25px;
     }
 
-    .download-card h2 {
-        font-size: 21px;
+
+    .app-icon {
+        width: 76px;
+        height: 76px;
+
+        border-radius: 22px;
+
+        font-size: 36px;
     }
+
+
+    .download-card h2 {
+        font-size: 24px;
+    }
+
 
     .subtitle {
         font-size: 14px;
+
+        line-height: 1.65;
     }
+
+
+    .download-btn {
+        min-height: 56px;
+
+        border-radius: 16px;
+    }
+
+}
+
+
+/* ================================
+   SMALL PHONES
+================================ */
+
+@media (max-width: 380px) {
+
+    .download-card {
+        padding:
+            30px 18px 24px;
+    }
+
+
+    .download-card h2 {
+        font-size: 22px;
+    }
+
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
 }
