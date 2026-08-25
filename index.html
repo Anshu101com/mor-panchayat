@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Download the official Mor Panchayat Android application."
+    >
+
+    <title>Mor Panchayat - Download App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background bubbles -->
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+
+    <main class="page">
+
+        <!-- Brand -->
+        <div class="brand">
+
+            <div class="logo">
+                🌿
+            </div>
+
+            <h1>Mor Panchayat</h1>
+
+        </div>
+
+
+        <!-- Download Card -->
+        <section class="download-card">
+
+            <div class="app-icon">
+                🌿
+            </div>
+
+
+            <h2 id="title">
+                Get the Mor Panchayat App
+            </h2>
+
+
+            <p class="subtitle" id="description">
+                Download the official Mor Panchayat Android
+                application and stay connected with your Panchayat.
+            </p>
+
+
+            <!-- Download Button -->
+            <a
+                class="download-btn"
+                href="downloads/mor-panchayat.apk"
+                download="Mor-Panchayat.apk"
+            >
+
+                <span class="download-icon">↓</span>
+
+                <span id="downloadText">
+                    Download App
+                </span>
+
+            </a>
+
+
+            <p class="android-text" id="androidText">
+                Android application
+            </p>
+
+
+            <div class="divider"></div>
+
+
+            <!-- Language Switch -->
+            <div class="language">
+
+                <button
+                    id="englishBtn"
+                    class="active"
+                    type="button"
+                    onclick="setLanguage('en')"
+                >
+                    English
+                </button>
+
+                <span>|</span>
+
+                <button
+                    id="hindiBtn"
+                    type="button"
+                    onclick="setLanguage('hi')"
+                >
+                    हिंदी
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <footer id="footerText">
+            © 2026 Mor Panchayat
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        function setLanguage(language) {
+
+            const title = document.getElementById("title");
+            const description = document.getElementById("description");
+            const downloadText = document.getElementById("downloadText");
+            const androidText = document.getElementById("androidText");
+            const footerText = document.getElementById("footerText");
+
+            const englishBtn = document.getElementById("englishBtn");
+            const hindiBtn = document.getElementById("hindiBtn");
+
+
+            if (language === "hi") {
+
+                document.documentElement.lang = "hi";
+
+                document.title = "Mor Panchayat - ऐप डाउनलोड";
+
+
+                title.textContent =
+                    "Mor Panchayat ऐप प्राप्त करें";
+
+
+                description.textContent =
+                    "आधिकारिक Mor Panchayat Android ऐप डाउनलोड करें और अपनी पंचायत से जुड़े रहें।";
+
+
+                downloadText.textContent =
+                    "ऐप डाउनलोड करें";
+
+
+                androidText.textContent =
+                    "Android एप्लिकेशन";
+
+
+                footerText.textContent =
+                    "© 2026 Mor Panchayat";
+
+
+                hindiBtn.classList.add("active");
+                englishBtn.classList.remove("active");
+
+            } else {
+
+                document.documentElement.lang = "en";
+
+                document.title =
+                    "Mor Panchayat - Download App";
+
+
+                title.textContent =
+                    "Get the Mor Panchayat App";
+
+
+                description.textContent =
+                    "Download the official Mor Panchayat Android application and stay connected with your Panchayat.";
+
+
+                downloadText.textContent =
+                    "Download App";
+
+
+                androidText.textContent =
+                    "Android application";
+
+
+                footerText.textContent =
+                    "© 2026 Mor Panchayat";
+
+
+                englishBtn.classList.add("active");
+                hindiBtn.classList.remove("active");
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
