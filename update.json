@@ -1,0 +1,12 @@
+{
+  "latestVersion": "1.0.6",
+  "minimumVersion": "1.0.0",
+  "critical": false,
+  "releaseDate": "2026-09-01",
+  "releaseNotes": [
+    "Improved villager login",
+    "Fixed session persistence",
+    "Improved announcements"
+  ],
+  "apkUrl": "https://mor-panchayat.vercel.app/downloads/Mor-Panchayat-1.0.6.apk"
+}
