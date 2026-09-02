@@ -196,38 +196,6 @@ The planned chat architecture supports:
 
 The villager chat interface is currently under active development.
 
----
-
-# 👤 Villager Profile
-
-Each villager can view their registered Panchayat information.
-
-Example:
-
-```text
-┌──────────────────────────────────┐
-│          👤                       │
-│       Aryan Sahu                 │
-│       Villager • Ward 13         │
-│                                  │
-│  🪪 Ward Panch                   │
-│     Ramesh Sahu                  │
-│     ☎ 9876543210                 │
-└──────────────────────────────────┘
-
-PERSONAL INFORMATION
-
-Name             Aryan Sahu
-Mobile Number    9876543210
-Father's Name    Suresh Sahu
-Mother's Name    Sunita Sahu
-Date of Birth    12/04/2007
-
-PANCHAYAT INFORMATION
-
-Ward Number      13
-House Number     124
-```
 
 ---
 
@@ -277,21 +245,6 @@ Mor Panchayat uses a clean civic-inspired interface.
 * 🧭 Simple navigation
 * 📝 Clear typography
 * 🇮🇳 Rural-friendly interface
-
-### Primary Color
-
-```text
-#176B4D
-```
-
-### Supporting Colors
-
-```text
-#EAF5F0
-#18352B
-#718078
-#F7FAF8
-```
 
 ---
 
@@ -425,114 +378,11 @@ mor_panchayat/
 │   │
 │   └── ...
 │
-├── supabase/
-│   │
-│   └── functions/
-│       │
-│       └── villager-forgot-password/
-│           └── index.ts
 │
 ├── pubspec.yaml
 │
 └── README.md
 ```
-
----
-
-# 🚀 Running the Project
-
-## 1. Clone the repository
-
-```bash
-git clone YOUR_REPOSITORY_URL
-```
-
-## 2. Enter the project
-
-```bash
-cd mor_panchayat
-```
-
-## 3. Install dependencies
-
-```bash
-flutter pub get
-```
-
-## 4. Run the application
-
-```bash
-flutter run
-```
-
----
-
-# 📦 Build APK
-
-To generate a release APK:
-
-```bash
-flutter build apk --release
-```
-
-The APK will normally be generated at:
-
-```text
-build/app/outputs/flutter-apk/app-release.apk
-```
-
-For a smaller architecture-specific APK:
-
-```bash
-flutter build apk --split-per-abi
-```
-
----
-
-# ☁️ Supabase Edge Functions
-
-The project contains server-side Supabase Edge Functions.
-
-Example:
-
-```bash
-supabase functions deploy villager-forgot-password
-```
-
-The function handles the villager password recovery workflow.
-
-> ⚠️ Never place the Supabase `service_role` key inside Flutter source code or commit it to GitHub.
-
----
-
-# 📸 Screenshots
-
-Add your application screenshots here.
-
-```text
-screenshots/
-├── welcome.png
-├── villager-login.png
-├── villager-home.png
-├── villager-profile.png
-├── announcements.png
-├── sarpanch-dashboard.png
-└── chat.png
-```
-
-Example:
-
-<div align="center">
-
-| Welcome                                         | Villager Home                                         |
-| ----------------------------------------------- | ----------------------------------------------------- |
-| <img src="screenshots/welcome.png" width="250"> | <img src="screenshots/villager-home.png" width="250"> |
-
-| Profile                                                  | Announcements                                         |
-| -------------------------------------------------------- | ----------------------------------------------------- |
-| <img src="screenshots/villager-profile.png" width="250"> | <img src="screenshots/announcements.png" width="250"> |
-
-</div>
 
 ---
 
@@ -571,16 +421,6 @@ Mor Panchayat is continuously evolving.
 * [x] Forgot password flow
 * [x] Android APK builds
 
-### 🚧 In Progress
-
-* [ ] Villager chat
-* [ ] Push notifications
-* [ ] Village news
-* [ ] Panchayat information page
-* [ ] Improved notification system
-* [ ] Profile editing workflow
-* [ ] More realtime features
-
 ### 🔮 Future
 
 * [ ] Panchayat service requests
@@ -607,13 +447,7 @@ If you find an issue:
 4. Mention your device and Android version.
 5. Provide steps to reproduce the issue.
 
-For code contributions:
 
-```bash
-git checkout -b feature/your-feature
-```
-
-Make your changes, test them and submit a Pull Request.
 
 ---
 
@@ -638,7 +472,7 @@ Steps:
 3.
 ```
 
-Please **never post passwords, API keys, Supabase service-role keys or other secrets** in issues.
+
 
 ---
 
@@ -646,12 +480,58 @@ Please **never post passwords, API keys, Supabase service-role keys or other sec
 
 Add your preferred license here.
 
-For example:
 
 ```text
-Copyright © 2026 Mor Panchayat
+Copyright (c) 2026 Mor Panchayat
 
-All rights reserved.
+All Rights Reserved.
+
+This software and its source code, including but not limited to the application,
+design, user interface, graphics, documentation, database structure, source code,
+and related materials, are the exclusive property of Mor Panchayat and its
+respective copyright holder.
+
+No part of this software or its source code may be:
+
+* Copied, reproduced, or duplicated
+* Modified, adapted, or redistributed
+* Published, republished, or uploaded elsewhere
+* Sold, licensed, sublicensed, or commercially exploited
+* Used to create derivative works
+* Included in another software or application
+* Used for personal, educational, governmental, commercial, or organizational
+  purposes without prior written permission
+
+Access to this repository does not grant any ownership rights, copyright rights,
+trademark rights, patent rights, or other intellectual property rights.
+
+The source code may be viewed for informational and evaluation purposes only,
+unless explicit written permission is granted by the copyright holder.
+
+The Mor Panchayat name, logo, branding, designs, visual assets, application
+interface, and other associated intellectual property are protected and may not
+be used, reproduced, or represented as belonging to another project without
+prior written permission.
+
+Any unauthorized copying, distribution, modification, commercial use,
+republication, or creation of derivative works may constitute a violation of
+applicable copyright and intellectual property laws.
+
+Permission for any use not expressly permitted by this notice must be obtained
+in writing from the copyright holder.
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY ARISING FROM THE USE OF, OR INABILITY TO USE, THIS SOFTWARE.
+
+For permission requests, please contact the copyright holder through the
+official Mor Panchayat project channels.
+
+© 2026 Mor Panchayat. All Rights Reserved.
+
 ```
 
 ---
