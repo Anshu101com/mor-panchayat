@@ -47,7 +47,7 @@
 
 <br><br>
 
-**Latest Version:** `v1.0.4 Beta`
+**Latest Version:** `v1.0.7 Beta`
 
 **Platform:** Android
 
