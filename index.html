@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,105 +10,144 @@
 
     <meta
         name="description"
-        content="Mor Panchayat - Official Android application for staying connected with your Panchayat."
+        content="Mor Panchayat - A digital platform connecting villagers and Panchayat members."
     >
 
     <meta
         name="theme-color"
-        content="#176B4D"
+        content="#071712"
     >
 
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <title>Mor Panchayat - Official App</title>
+    <title>Mor Panchayat | Digital Panchayat</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-    <!-- =========================================
-         BACKGROUND
-    ========================================== -->
+    <!-- =========================================================
+         BACKGROUND EFFECTS
+    ========================================================== -->
 
-    <div class="background">
+    <div class="background-effects">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="glow glow-three"></div>
 
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-
-        <div class="grid"></div>
-
+        <span class="bubble bubble-1"></span>
+        <span class="bubble bubble-2"></span>
+        <span class="bubble bubble-3"></span>
+        <span class="bubble bubble-4"></span>
+        <span class="bubble bubble-5"></span>
     </div>
 
 
-    <!-- =========================================
-         NAVBAR
-    ========================================== -->
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
 
     <header class="navbar">
 
         <div class="nav-container">
 
-            <div class="nav-brand">
+            <a href="#home" class="brand">
 
-                <div class="nav-logo">
+                <div class="brand-icon">
                     🌿
                 </div>
 
-                <span>
-                    Mor Panchayat
-                </span>
+                <div class="brand-text">
+                    <strong>Mor Panchayat</strong>
+                    <span data-i18n="brandTagline">
+                        Digital Panchayat
+                    </span>
+                </div>
 
-            </div>
+            </a>
 
 
-            <nav class="nav-links">
+            <nav class="desktop-nav">
 
-                <a href="#home" data-en="Home" data-hi="होम">
+                <a href="#home" data-i18n="navHome">
                     Home
                 </a>
 
-                <a href="#features" data-en="Features" data-hi="विशेषताएँ">
+                <a href="#features" data-i18n="navFeatures">
                     Features
                 </a>
 
-                <a href="#releases" data-en="Releases" data-hi="रिलीज़">
+                <a href="#latest" data-i18n="navLatest">
+                    Latest
+                </a>
+
+                <a href="#releases" data-i18n="navReleases">
                     Releases
                 </a>
 
-                <a href="#download" data-en="Download" data-hi="डाउनलोड">
-                    Download
+                <a href="#install" data-i18n="navInstall">
+                    Install
                 </a>
 
             </nav>
 
 
-            <div class="nav-language">
+            <div class="nav-actions">
 
                 <button
-                    id="navEnglish"
-                    class="active"
-                    onclick="setLanguage('en')"
+                    class="language-button"
+                    id="languageToggle"
+                    aria-label="Change language"
                 >
-                    EN
+                    <span>EN</span>
+                    <span class="language-divider">/</span>
+                    <span>हिं</span>
                 </button>
 
-                <span>/</span>
+                <a
+                    class="github-button"
+                    href="https://github.com/Anshu101com/mor-panchayat"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    GitHub
+                </a>
 
                 <button
-                    id="navHindi"
-                    onclick="setLanguage('hi')"
+                    class="menu-button"
+                    id="menuButton"
+                    aria-label="Open menu"
                 >
-                    HI
+                    ☰
                 </button>
 
             </div>
+
+        </div>
+
+
+        <!-- Mobile Navigation -->
+
+        <div class="mobile-menu" id="mobileMenu">
+
+            <a href="#home" data-i18n="navHome">
+                Home
+            </a>
+
+            <a href="#features" data-i18n="navFeatures">
+                Features
+            </a>
+
+            <a href="#latest" data-i18n="navLatest">
+                Latest
+            </a>
+
+            <a href="#releases" data-i18n="navReleases">
+                Releases
+            </a>
+
+            <a href="#install" data-i18n="navInstall">
+                Install
+            </a>
 
         </div>
 
@@ -118,477 +155,212 @@
 
 
 
-    <!-- =========================================
-         MAIN
-    ========================================== -->
-
     <main>
 
-
-        <!-- =====================================
+        <!-- =====================================================
              HERO
-        ====================================== -->
+        ====================================================== -->
 
-        <section
-            class="hero"
-            id="home"
-        >
+        <section class="hero section" id="home">
 
-            <div class="hero-content">
+            <div class="hero-container">
 
+                <div class="hero-content reveal">
 
-                <div class="status-pill">
+                    <div class="release-pill">
 
-                    <span class="status-dot"></span>
+                        <span class="status-dot"></span>
 
-                    <span
-                        id="statusText"
-                        data-en="Latest release: v1.0.7 Beta"
-                        data-hi="नवीनतम रिलीज़: v1.0.7 Beta"
-                    >
-                        Latest release: v1.0.7 Beta
-                    </span>
-
-                </div>
-
-
-                <h1>
-
-                    <span
-                        data-en="Your Panchayat,"
-                        data-hi="आपकी पंचायत,"
-                    >
-                        Your Panchayat,
-                    </span>
-
-                    <br>
-
-                    <span class="gradient-text"
-                        data-en="Now Connected."
-                        data-hi="अब जुड़ी हुई।"
-                    >
-                        Now Connected.
-                    </span>
-
-                </h1>
-
-
-                <p
-                    class="hero-description"
-                    data-en="Mor Panchayat brings your Panchayat closer to you. Stay informed, communicate with Panchayat members, and access important village information from one place."
-                    data-hi="Mor Panchayat आपकी पंचायत को आपके और करीब लाता है। महत्वपूर्ण जानकारी प्राप्त करें, पंचायत सदस्यों से जुड़ें और गांव की जानकारी एक ही स्थान पर पाएं।"
-                >
-                    Mor Panchayat brings your Panchayat closer to you.
-                    Stay informed, communicate with Panchayat members,
-                    and access important village information from one place.
-                </p>
-
-
-                <div class="hero-buttons">
-
-                    <a
-                        href="#download"
-                        class="primary-btn"
-                    >
-
-                        <span>↓</span>
-
-                        <span
-                            data-en="Download Latest Version"
-                            data-hi="नवीनतम संस्करण डाउनलोड करें"
-                        >
-                            Download Latest Version
+                        <span data-i18n="latestRelease">
+                            Latest Release
                         </span>
 
-                    </a>
-
-
-                    <a
-                        href="#releases"
-                        class="secondary-btn"
-                    >
-
-                        <span>↗</span>
-
-                        <span
-                            data-en="View Releases"
-                            data-hi="रिलीज़ देखें"
-                        >
-                            View Releases
-                        </span>
-
-                    </a>
-
-                </div>
-
-
-                <div class="hero-info">
-
-                    <div>
-
-                        <strong>
-                            v1.0.7
-                        </strong>
-
-                        <span
-                            data-en="Latest Version"
-                            data-hi="नवीनतम संस्करण"
-                        >
-                            Latest Version
-                        </span>
-
-                    </div>
-
-
-                    <div class="info-divider"></div>
-
-
-                    <div>
-
-                        <strong>
-                            Android
-                        </strong>
-
-                        <span
-                            data-en="Platform"
-                            data-hi="प्लेटफ़ॉर्म"
-                        >
-                            Platform
-                        </span>
-
-                    </div>
-
-
-                    <div class="info-divider"></div>
-
-
-                    <div>
-
-                        <strong>
-                            Beta
-                        </strong>
-
-                        <span
-                            data-en="Release Channel"
-                            data-hi="रिलीज़ चैनल"
-                        >
-                            Release Channel
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- PHONE MOCKUP -->
-
-            <div class="phone-area">
-
-                <div class="phone-glow"></div>
-
-                <div class="phone">
-
-                    <div class="phone-notch"></div>
-
-                    <div class="phone-screen">
-
-                        <div class="mock-status">
-                            9:41
-                        </div>
-
-
-                        <div class="mock-header">
-
-                            <span>🌿</span>
-
-                            <strong>
-                                Mor Panchayat
-                            </strong>
-
-                        </div>
-
-
-                        <div class="mock-welcome">
-
-                            <small>
-                                Welcome
-                            </small>
-
-                            <h3>
-                                Stay Connected
-                            </h3>
-
-                        </div>
-
-
-                        <div class="mock-card">
-
-                            <div class="mock-icon">
-                                📢
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Latest Announcement
-                                </strong>
-
-                                <small>
-                                    Panchayat information
-                                </small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="mock-grid">
-
-                            <div>
-                                👥
-                                <span>
-                                    Members
-                                </span>
-                            </div>
-
-                            <div>
-                                📰
-                                <span>
-                                    News
-                                </span>
-                            </div>
-
-                            <div>
-                                💬
-                                <span>
-                                    Chat
-                                </span>
-                            </div>
-
-                            <div>
-                                🏠
-                                <span>
-                                    Profile
-                                </span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="mock-bottom">
-
-                            <span>⌂</span>
-                            <span>👥</span>
-                            <span>📢</span>
-                            <span>💬</span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =====================================
-             LATEST RELEASE
-        ====================================== -->
-
-        <section
-            class="section"
-            id="download"
-        >
-
-            <div class="section-heading">
-
-                <div class="section-label">
-                    LATEST RELEASE
-                </div>
-
-                <h2
-                    data-en="Mor Panchayat v1.0.7"
-                    data-hi="Mor Panchayat v1.0.7"
-                >
-                    Mor Panchayat v1.0.7
-                </h2>
-
-                <p
-                    data-en="The newest version of the Mor Panchayat Android application."
-                    data-hi="Mor Panchayat Android एप्लिकेशन का नवीनतम संस्करण।"
-                >
-                    The newest version of the Mor Panchayat Android application.
-                </p>
-
-            </div>
-
-
-            <div class="release-card latest-release">
-
-
-                <div class="release-top">
-
-                    <div>
-
-                        <div class="version-badge">
-                            Latest
-                        </div>
-
-                        <h3>
+                        <strong id="heroVersion">
                             v1.0.7 Beta
-                        </h3>
-
-                        <p
-                            data-en="Current recommended version"
-                            data-hi="वर्तमान अनुशंसित संस्करण"
-                        >
-                            Current recommended version
-                        </p>
-
-                    </div>
-
-
-                    <div class="release-date">
-
-                        <span
-                            data-en="Released"
-                            data-hi="रिलीज़"
-                        >
-                            Released
-                        </span>
-
-                        <strong>
-                            September 2026
                         </strong>
 
                     </div>
 
-                </div>
+
+                    <h1>
+
+                        <span data-i18n="heroTitleOne">
+                            Your Panchayat.
+                        </span>
+
+                        <br>
+
+                        <span class="gradient-text"
+                              data-i18n="heroTitleTwo">
+                            Now connected.
+                        </span>
+
+                    </h1>
 
 
-                <div class="release-content">
+                    <p data-i18n="heroDescription">
+                        Mor Panchayat is a digital platform designed to
+                        connect villagers and Panchayat members through
+                        announcements, communication, profiles and
+                        real-time information.
+                    </p>
 
 
-                    <div class="whats-new">
-
-                        <h4
-                            data-en="What's New"
-                            data-hi="क्या नया है"
-                        >
-                            What's New
-                        </h4>
-
-
-                        <ul>
-
-                            <li
-                                data-en="Improved app update system"
-                                data-hi="बेहतर ऐप अपडेट सिस्टम"
-                            >
-                                Improved app update system
-                            </li>
-
-                            <li
-                                data-en="Improved villager login and account flow"
-                                data-hi="बेहतर ग्रामीण लॉगिन और अकाउंट सिस्टम"
-                            >
-                                Improved villager login and account flow
-                            </li>
-
-                            <li
-                                data-en="Improved Panchayat member management"
-                                data-hi="बेहतर पंचायत सदस्य प्रबंधन"
-                            >
-                                Improved Panchayat member management
-                            </li>
-
-                            <li
-                                data-en="Realtime announcements and chat improvements"
-                                data-hi="रीयलटाइम घोषणाओं और चैट में सुधार"
-                            >
-                                Realtime announcements and chat improvements
-                            </li>
-
-                            <li
-                                data-en="UI and performance improvements"
-                                data-hi="UI और प्रदर्शन में सुधार"
-                            >
-                                UI and performance improvements
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-                    <div class="download-panel">
-
-                        <div class="android-symbol">
-                            🤖
-                        </div>
-
-                        <h4>
-                            Android
-                        </h4>
-
-                        <p
-                            data-en="APK • Beta Channel"
-                            data-hi="APK • Beta चैनल"
-                        >
-                            APK • Beta Channel
-                        </p>
-
+                    <div class="hero-buttons">
 
                         <a
-                            class="download-btn-large"
-                            href="https://github.com/Anshu101com/mor-panchayat/releases/download/v1.0.7_Beta/Mor.Panchayat.v1.0.7-Beta.Pre.Release.apk"
+                            id="heroDownload"
+                            class="primary-button"
+                            href="#"
                             download
                         >
+                            <span>⬇</span>
 
-                            <span>
-                                ↓
-                            </span>
-
-                            <span
-                                data-en="Download APK"
-                                data-hi="APK डाउनलोड करें"
-                            >
-                                Download APK
+                            <span data-i18n="downloadLatest">
+                                Download Latest APK
                             </span>
 
                         </a>
 
 
-                        <small
-                            data-en="Free • Official release"
-                            data-hi="मुफ़्त • आधिकारिक रिलीज़"
+                        <a
+                            href="#releases"
+                            class="secondary-button"
                         >
-                            Free • Official release
-                        </small>
+                            <span>▣</span>
+
+                            <span data-i18n="viewReleases">
+                                View Releases
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-meta">
+
+                        <span>
+                            📱 Android
+                        </span>
+
+                        <span>
+                            🌐 Online
+                        </span>
+
+                        <span>
+                            🇮🇳 Hindi + English
+                        </span>
 
                     </div>
 
                 </div>
 
 
-                <div class="release-footer">
 
-                    <span>
-                        ✓
-                    </span>
+                <!-- Phone Preview -->
 
-                    <span
-                        data-en="Official Mor Panchayat release"
-                        data-hi="आधिकारिक Mor Panchayat रिलीज़"
-                    >
-                        Official Mor Panchayat release
-                    </span>
+                <div class="hero-visual reveal">
+
+                    <div class="phone-glow"></div>
+
+                    <div class="phone">
+
+                        <div class="phone-notch"></div>
+
+                        <div class="phone-screen">
+
+                            <div class="app-header">
+
+                                <div>
+                                    <small>Welcome to</small>
+                                    <strong>Mor Panchayat</strong>
+                                </div>
+
+                                <div class="mini-logo">
+                                    🌿
+                                </div>
+
+                            </div>
+
+
+                            <div class="welcome-card">
+
+                                <span class="card-label">
+                                    Panchayat
+                                </span>
+
+                                <h3>
+                                    Stay connected.
+                                </h3>
+
+                                <p>
+                                    Information for everyone.
+                                </p>
+
+                            </div>
+
+
+                            <div class="phone-stats">
+
+                                <div>
+                                    <strong>24</strong>
+                                    <span>Updates</span>
+                                </div>
+
+                                <div>
+                                    <strong>12</strong>
+                                    <span>Members</span>
+                                </div>
+
+                                <div>
+                                    <strong>∞</strong>
+                                    <span>Connect</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="phone-card">
+
+                                <span class="notification-icon">
+                                    🔔
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        New Announcement
+                                    </strong>
+
+                                    <small>
+                                        Panchayat information
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="phone-card">
+
+                                <span class="notification-icon">
+                                    💬
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Panchayat Chat
+                                    </strong>
+
+                                    <small>
+                                        Real-time communication
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -598,34 +370,72 @@
 
 
 
-        <!-- =====================================
-             FEATURES
-        ====================================== -->
+        <!-- =====================================================
+             LATEST RELEASE BANNER
+        ====================================================== -->
 
-        <section
-            class="section"
-            id="features"
-        >
+        <section class="release-banner section">
 
-            <div class="section-heading">
+            <div class="release-banner-container reveal">
 
-                <div class="section-label">
-                    FEATURES
+                <div class="release-icon">
+                    🚀
                 </div>
 
-                <h2
-                    data-en="Everything your Panchayat needs"
-                    data-hi="आपकी पंचायत के लिए आवश्यक सुविधाएँ"
+                <div class="release-info">
+
+                    <span data-i18n="latestBuild">
+                        Latest Beta Build
+                    </span>
+
+                    <h2 id="bannerVersion">
+                        Mor Panchayat v1.0.7
+                    </h2>
+
+                    <p data-i18n="latestBuildDescription">
+                        Get the latest Android build and experience
+                        the newest improvements.
+                    </p>
+
+                </div>
+
+                <a
+                    id="bannerDownload"
+                    href="#"
+                    class="banner-button"
+                    download
                 >
-                    Everything your Panchayat needs
+                    <span data-i18n="downloadNow">
+                        Download Now
+                    </span>
+                    →
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FEATURES
+        ====================================================== -->
+
+        <section class="section" id="features">
+
+            <div class="section-heading reveal">
+
+                <span class="section-tag" data-i18n="featuresTag">
+                    FEATURES
+                </span>
+
+                <h2 data-i18n="featuresTitle">
+                    Everything your Panchayat needs.
                 </h2>
 
-                <p
-                    data-en="Built to make communication between villagers and Panchayat members simpler."
-                    data-hi="ग्रामीणों और पंचायत सदस्यों के बीच संचार को आसान बनाने के लिए बनाया गया।"
-                >
-                    Built to make communication between villagers
-                    and Panchayat members simpler.
+                <p data-i18n="featuresDescription">
+                    A simple digital platform built to improve
+                    communication and access to Panchayat information.
                 </p>
 
             </div>
@@ -633,149 +443,112 @@
 
             <div class="features-grid">
 
-
-                <div class="feature-card">
+                <article class="feature-card reveal">
 
                     <div class="feature-icon">
                         📢
                     </div>
 
-                    <h3
-                        data-en="Announcements"
-                        data-hi="घोषणाएँ"
-                    >
+                    <h3 data-i18n="featureAnnouncements">
                         Announcements
                     </h3>
 
-                    <p
-                        data-en="Receive important Panchayat announcements and village information in one place."
-                        data-hi="महत्वपूर्ण पंचायत घोषणाएँ और गांव की जानकारी एक ही स्थान पर प्राप्त करें।"
-                    >
-                        Receive important Panchayat announcements
-                        and village information in one place.
+                    <p data-i18n="featureAnnouncementsDesc">
+                        Share important Panchayat news and updates
+                        with villagers quickly.
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="feature-card">
+                <article class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        👤
+                    </div>
+
+                    <h3 data-i18n="featureProfiles">
+                        Villager Profiles
+                    </h3>
+
+                    <p data-i18n="featureProfilesDesc">
+                        Keep important villager information organised
+                        in a simple digital profile.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        🏛️
+                    </div>
+
+                    <h3 data-i18n="featureMembers">
+                        Panchayat Members
+                    </h3>
+
+                    <p data-i18n="featureMembersDesc">
+                        View Panchayat members, wards and relevant
+                        contact information.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
 
                     <div class="feature-icon">
                         💬
                     </div>
 
-                    <h3
-                        data-en="Realtime Chat"
-                        data-hi="रीयलटाइम चैट"
-                    >
-                        Realtime Chat
+                    <h3 data-i18n="featureChat">
+                        Real-Time Chat
                     </h3>
 
-                    <p
-                        data-en="Communicate with Panchayat members through the integrated chat system."
-                        data-hi="एकीकृत चैट सिस्टम के माध्यम से पंचायत सदस्यों से संवाद करें।"
-                    >
+                    <p data-i18n="featureChatDesc">
                         Communicate with Panchayat members through
-                        the integrated chat system.
+                        real-time conversations.
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        👥
-                    </div>
-
-                    <h3
-                        data-en="Member Management"
-                        data-hi="सदस्य प्रबंधन"
-                    >
-                        Member Management
-                    </h3>
-
-                    <p
-                        data-en="Panchayat members can manage member information and ward responsibilities."
-                        data-hi="पंचायत सदस्य सदस्य जानकारी और वार्ड जिम्मेदारियों को प्रबंधित कर सकते हैं।"
-                    >
-                        Panchayat members can manage member information
-                        and ward responsibilities.
-                    </p>
-
-                </div>
-
-
-                <div class="feature-card">
+                <article class="feature-card reveal">
 
                     <div class="feature-icon">
                         🌐
                     </div>
 
-                    <h3
-                        data-en="Hindi & English"
-                        data-hi="हिंदी और अंग्रेज़ी"
-                    >
+                    <h3 data-i18n="featureLanguage">
                         Hindi & English
                     </h3>
 
-                    <p
-                        data-en="Use Mor Panchayat comfortably in both Hindi and English."
-                        data-hi="Mor Panchayat को हिंदी और अंग्रेज़ी दोनों भाषाओं में आसानी से उपयोग करें।"
-                    >
-                        Use Mor Panchayat comfortably in both
-                        Hindi and English.
+                    <p data-i18n="featureLanguageDesc">
+                        Use the platform in English or Hindi for a
+                        more accessible experience.
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="feature-card">
+                <article class="feature-card reveal">
 
                     <div class="feature-icon">
-                        🔐
+                        🔄
                     </div>
 
-                    <h3
-                        data-en="Secure Accounts"
-                        data-hi="सुरक्षित अकाउंट"
-                    >
-                        Secure Accounts
+                    <h3 data-i18n="featureRealtime">
+                        Live Updates
                     </h3>
 
-                    <p
-                        data-en="Dedicated account flows for villagers and Panchayat members."
-                        data-hi="ग्रामीणों और पंचायत सदस्यों के लिए अलग और सुरक्षित अकाउंट सिस्टम।"
-                    >
-                        Dedicated account flows for villagers
-                        and Panchayat members.
+                    <p data-i18n="featureRealtimeDesc">
+                        Receive updated information without needing
+                        to manually refresh the app.
                     </p>
 
-                </div>
-
-
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        ⚡
-                    </div>
-
-                    <h3
-                        data-en="Realtime Updates"
-                        data-hi="रीयलटाइम अपडेट"
-                    >
-                        Realtime Updates
-                    </h3>
-
-                    <p
-                        data-en="Stay updated with live announcements and Panchayat activity."
-                        data-hi="लाइव घोषणाओं और पंचायत गतिविधियों से अपडेट रहें।"
-                    >
-                        Stay updated with live announcements
-                        and Panchayat activity.
-                    </p>
-
-                </div>
+                </article>
 
             </div>
 
@@ -783,208 +556,138 @@
 
 
 
-        <!-- =====================================
-             RELEASE HISTORY
-        ====================================== -->
+        <!-- =====================================================
+             LATEST VERSION
+        ====================================================== -->
 
-        <section
-            class="section"
-            id="releases"
-        >
+        <section class="section latest-section" id="latest">
 
-            <div class="section-heading">
+            <div class="latest-grid">
 
-                <div class="section-label">
-                    RELEASE HISTORY
-                </div>
+                <div class="latest-copy reveal">
 
-                <h2
-                    data-en="Previous Versions"
-                    data-hi="पिछले संस्करण"
-                >
-                    Previous Versions
-                </h2>
+                    <span class="section-tag">
+                        LATEST VERSION
+                    </span>
 
-                <p
-                    data-en="Explore previous Mor Panchayat releases."
-                    data-hi="Mor Panchayat के पिछले संस्करण देखें।"
-                >
-                    Explore previous Mor Panchayat releases.
-                </p>
+                    <h2>
+                        Mor Panchayat
+                        <span
+                            class="gradient-text"
+                            id="latestVersionTitle"
+                        >
+                            v1.0.7
+                        </span>
+                    </h2>
 
-            </div>
-
-
-            <div class="timeline">
+                    <p data-i18n="latestDescription">
+                        The latest beta version of Mor Panchayat.
+                        Download the Android APK directly and keep
+                        your application updated.
+                    </p>
 
 
-                <!-- v1.0.6 -->
+                    <div class="version-details">
 
-                <div class="timeline-item">
-
-                    <div class="timeline-dot"></div>
-
-                    <div class="history-card">
-
-                        <div class="history-header">
-
-                            <div>
-
-                                <span class="version">
-                                    v1.0.6
-                                </span>
-
-                                <span class="beta">
-                                    Beta
-                                </span>
-
-                            </div>
-
-                            <span class="history-date">
-                                August 2026
+                        <div>
+                            <span data-i18n="version">
+                                Version
                             </span>
 
+                            <strong id="latestVersion">
+                                v1.0.7 Beta
+                            </strong>
                         </div>
 
+                        <div>
+                            <span data-i18n="platform">
+                                Platform
+                            </span>
 
-                        <p
-                            data-en="Improved villager account flow, password recovery, realtime features and overall stability."
-                            data-hi="ग्रामीण अकाउंट फ्लो, पासवर्ड रिकवरी, रीयलटाइम फीचर्स और स्थिरता में सुधार।"
-                        >
-                            Improved villager account flow,
-                            password recovery, realtime features
-                            and overall stability.
-                        </p>
+                            <strong>
+                                Android
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span data-i18n="releaseType">
+                                Release Type
+                            </span>
+
+                            <strong>
+                                Beta
+                            </strong>
+                        </div>
 
                     </div>
 
+
+                    <a
+                        id="latestDownload"
+                        href="#"
+                        class="primary-button"
+                        download
+                    >
+                        ⬇
+                        <span data-i18n="downloadVersion">
+                            Download Version
+                        </span>
+                    </a>
+
                 </div>
 
 
 
-                <!-- v1.0.5 -->
+                <div class="update-card reveal">
 
-                <div class="timeline-item">
+                    <div class="update-card-header">
 
-                    <div class="timeline-dot"></div>
+                        <span class="update-symbol">
+                            ✨
+                        </span>
 
-                    <div class="history-card">
+                        <div>
+                            <small data-i18n="currentBuild">
+                                Current Build
+                            </small>
 
-                        <div class="history-header">
-
-                            <div>
-
-                                <span class="version">
-                                    v1.0.5
-                                </span>
-
-                                <span class="beta">
-                                    Beta
-                                </span>
-
-                            </div>
-
-                            <span class="history-date">
-                                August 2026
-                            </span>
-
+                            <strong id="updateCardVersion">
+                                v1.0.7 Beta
+                            </strong>
                         </div>
-
-
-                        <p
-                            data-en="Introduced improved villager authentication, profile management and Panchayat communication features."
-                            data-hi="बेहतर ग्रामीण प्रमाणीकरण, प्रोफ़ाइल प्रबंधन और पंचायत संचार सुविधाएँ जोड़ी गईं।"
-                        >
-                            Introduced improved villager authentication,
-                            profile management and Panchayat communication
-                            features.
-                        </p>
 
                     </div>
 
-                </div>
+
+                    <div class="update-line"></div>
 
 
-
-                <!-- v1.0.4 -->
-
-                <div class="timeline-item">
-
-                    <div class="timeline-dot"></div>
-
-                    <div class="history-card">
-
-                        <div class="history-header">
-
-                            <div>
-
-                                <span class="version">
-                                    v1.0.4
-                                </span>
-
-                                <span class="beta">
-                                    Beta
-                                </span>
-
-                            </div>
-
-                            <span class="history-date">
-                                August 2026
-                            </span>
-
-                        </div>
-
-
-                        <p
-                            data-en="Expanded Panchayat member features and improved the application interface."
-                            data-hi="पंचायत सदस्य सुविधाओं का विस्तार और एप्लिकेशन इंटरफ़ेस में सुधार।"
-                        >
-                            Expanded Panchayat member features
-                            and improved the application interface.
+                    <div class="update-item">
+                        <span>✓</span>
+                        <p data-i18n="updateOne">
+                            Improved Panchayat communication experience
                         </p>
-
                     </div>
 
-                </div>
-
-
-
-                <!-- v1.0.3 -->
-
-                <div class="timeline-item">
-
-                    <div class="timeline-dot"></div>
-
-                    <div class="history-card">
-
-                        <div class="history-header">
-
-                            <div>
-
-                                <span class="version">
-                                    v1.0.3
-                                </span>
-
-                                <span class="beta">
-                                    Beta
-                                </span>
-
-                            </div>
-
-                            <span class="history-date">
-                                August 2026
-                            </span>
-
-                        </div>
-
-
-                        <p
-                            data-en="Initial public beta release of Mor Panchayat."
-                            data-hi="Mor Panchayat की प्रारंभिक सार्वजनिक बीटा रिलीज़।"
-                        >
-                            Initial public beta release of Mor Panchayat.
+                    <div class="update-item">
+                        <span>✓</span>
+                        <p data-i18n="updateTwo">
+                            Improved villager account experience
                         </p>
+                    </div>
 
+                    <div class="update-item">
+                        <span>✓</span>
+                        <p data-i18n="updateThree">
+                            Real-time announcements and communication
+                        </p>
+                    </div>
+
+                    <div class="update-item">
+                        <span>✓</span>
+                        <p data-i18n="updateFour">
+                            Performance and UI improvements
+                        </p>
                     </div>
 
                 </div>
@@ -995,38 +698,109 @@
 
 
 
-        <!-- =====================================
+        <!-- =====================================================
              INSTALLATION
-        ====================================== -->
+        ====================================================== -->
 
-        <section class="install-section">
+        <section class="section install-section" id="install">
 
-            <div class="install-card">
+            <div class="section-heading reveal">
 
-                <div class="install-icon">
-                    📱
-                </div>
+                <span class="section-tag" data-i18n="installTag">
+                    INSTALLATION
+                </span>
+
+                <h2 data-i18n="installTitle">
+                    Get Mor Panchayat in three steps.
+                </h2>
+
+                <p data-i18n="installDescription">
+                    Download the APK and install the latest version
+                    directly on your Android device.
+                </p>
+
+            </div>
 
 
-                <div class="install-text">
+            <div class="steps">
 
-                    <h3
-                        data-en="Installing the APK"
-                        data-hi="APK इंस्टॉल करना"
-                    >
-                        Installing the APK
+                <div class="step reveal">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        ⬇
+                    </div>
+
+                    <h3 data-i18n="stepOneTitle">
+                        Download
                     </h3>
 
-                    <p
-                        data-en="Download the APK and open it on your Android device. You may need to allow installation from unknown sources in Android settings."
-                        data-hi="APK डाउनलोड करके अपने Android डिवाइस पर खोलें। Android सेटिंग्स में Unknown Sources से इंस्टॉलेशन की अनुमति देनी पड़ सकती है।"
-                    >
-                        Download the APK and open it on your Android device.
-                        You may need to allow installation from unknown
-                        sources in Android settings.
+                    <p data-i18n="stepOneDescription">
+                        Download the latest APK from the official
+                        Mor Panchayat release page.
                     </p>
 
                 </div>
+
+
+                <div class="step reveal">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+                        📦
+                    </div>
+
+                    <h3 data-i18n="stepTwoTitle">
+                        Open APK
+                    </h3>
+
+                    <p data-i18n="stepTwoDescription">
+                        Open the downloaded APK file from your
+                        notification or Downloads folder.
+                    </p>
+
+                </div>
+
+
+                <div class="step reveal">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        ✓
+                    </div>
+
+                    <h3 data-i18n="stepThreeTitle">
+                        Install
+                    </h3>
+
+                    <p data-i18n="stepThreeDescription">
+                        If Android asks for permission, allow
+                        installation and complete the setup.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="install-note reveal">
+
+                <span>ℹ️</span>
+
+                <p data-i18n="installNote">
+                    Mor Panchayat is currently distributed as an
+                    Android APK. An internet connection is required
+                    for online services and real-time updates.
+                </p>
 
             </div>
 
@@ -1034,51 +808,124 @@
 
 
 
-        <!-- =====================================
-             FINAL CTA
-        ====================================== -->
+        <!-- =====================================================
+             RELEASE HISTORY
+        ====================================================== -->
 
-        <section class="final-cta">
+        <section class="section releases-section" id="releases">
 
-            <div class="cta-glow"></div>
+            <div class="section-heading reveal">
 
-            <div class="cta-content">
+                <span class="section-tag" data-i18n="releaseTag">
+                    RELEASE HISTORY
+                </span>
 
-                <div class="cta-logo">
-                    🌿
-                </div>
-
-                <h2
-                    data-en="Stay connected with your Panchayat."
-                    data-hi="अपनी पंचायत से जुड़े रहें।"
-                >
-                    Stay connected with your Panchayat.
+                <h2 data-i18n="releaseTitle">
+                    Previous versions.
                 </h2>
 
-                <p
-                    data-en="Download Mor Panchayat and keep your village information close."
-                    data-hi="Mor Panchayat डाउनलोड करें और अपने गांव की जानकारी अपने पास रखें।"
-                >
-                    Download Mor Panchayat and keep your village
-                    information close.
+                <p data-i18n="releaseDescription">
+                    Download an earlier version whenever you need it.
+                    Each release keeps its own APK download link.
                 </p>
+
+            </div>
+
+
+            <div
+                class="release-list"
+                id="releaseList"
+            >
+                <!-- Generated automatically by script.js -->
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             GITHUB CTA
+        ====================================================== -->
+
+        <section class="section github-section">
+
+            <div class="github-card reveal">
+
+                <div class="github-card-content">
+
+                    <span class="github-big-icon">
+                        ◉
+                    </span>
+
+                    <div>
+
+                        <span class="section-tag">
+                            GITHUB
+                        </span>
+
+                        <h2 data-i18n="githubTitle">
+                            Explore the project.
+                        </h2>
+
+                        <p data-i18n="githubDescription">
+                            View releases, project updates and
+                            development information on GitHub.
+                        </p>
+
+                    </div>
+
+                </div>
 
 
                 <a
-                    href="https://github.com/Anshu101com/mor-panchayat/releases/download/v1.0.7_Beta/Mor.Panchayat.v1.0.7-Beta.Pre.Release.apk"
-                    class="primary-btn cta-button"
+                    href="https://github.com/Anshu101com/mor-panchayat"
+                    target="_blank"
+                    rel="noopener"
+                    class="secondary-button"
+                >
+                    <span data-i18n="openGithub">
+                        Open GitHub
+                    </span>
+                    →
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FINAL CTA
+        ====================================================== -->
+
+        <section class="final-cta section">
+
+            <div class="final-cta-inner reveal">
+
+                <div class="final-logo">
+                    🌿
+                </div>
+
+                <h2 data-i18n="finalTitle">
+                    A smarter way to connect your Panchayat.
+                </h2>
+
+                <p data-i18n="finalDescription">
+                    Download Mor Panchayat and stay connected
+                    with your village.
+                </p>
+
+                <a
+                    id="finalDownload"
+                    href="#"
+                    class="primary-button"
                     download
                 >
-
-                    ↓
-
-                    <span
-                        data-en="Download v1.0.7"
-                        data-hi="v1.0.7 डाउनलोड करें"
-                    >
-                        Download v1.0.7
+                    ⬇
+                    <span data-i18n="downloadLatest">
+                        Download Latest APK
                     </span>
-
                 </a>
 
             </div>
@@ -1089,71 +936,69 @@
 
 
 
-    <!-- =========================================
+    <!-- =========================================================
          FOOTER
-    ========================================== -->
+    ========================================================== -->
 
-    <footer>
+    <footer class="footer">
 
         <div class="footer-container">
 
-
             <div class="footer-brand">
 
-                <div class="nav-logo">
-                    🌿
+                <div class="brand">
+
+                    <div class="brand-icon">
+                        🌿
+                    </div>
+
+                    <div class="brand-text">
+
+                        <strong>
+                            Mor Panchayat
+                        </strong>
+
+                        <span>
+                            Digital Panchayat
+                        </span>
+
+                    </div>
+
                 </div>
 
-                <div>
-
-                    <strong>
-                        Mor Panchayat
-                    </strong>
-
-                    <span
-                        data-en="Connecting Panchayat & Community"
-                        data-hi="पंचायत और समुदाय को जोड़ना"
-                    >
-                        Connecting Panchayat & Community
-                    </span>
-
-                </div>
+                <p data-i18n="footerDescription">
+                    Connecting villagers and Panchayat members
+                    through technology.
+                </p>
 
             </div>
 
 
             <div class="footer-links">
 
-                <a
-                    href="#home"
-                    data-en="Home"
-                    data-hi="होम"
-                >
+                <a href="#home" data-i18n="navHome">
                     Home
                 </a>
 
-                <a
-                    href="#features"
-                    data-en="Features"
-                    data-hi="विशेषताएँ"
-                >
+                <a href="#features" data-i18n="navFeatures">
                     Features
                 </a>
 
-                <a
-                    href="#releases"
-                    data-en="Releases"
-                    data-hi="रिलीज़"
-                >
+                <a href="#releases" data-i18n="navReleases">
                     Releases
                 </a>
 
+                <a href="#install" data-i18n="navInstall">
+                    Install
+                </a>
+
                 <a
-                    href="#download"
-                    data-en="Download"
-                    data-hi="डाउनलोड"
+                    href="https://github.com/Anshu101com/mor-panchayat/releases"
+                    target="_blank"
+                    rel="noopener"
+                    data-i18n="githubReleases"
                 >
-                    Download
+                    GitHub Releases
                 </a>
 
             </div>
@@ -1164,10 +1009,11 @@
         <div class="footer-bottom">
 
             <span>
-                © 2026 Mor Panchayat
+                © <span id="currentYear"></span>
+                Mor Panchayat
             </span>
 
-            <span>
+            <span data-i18n="allRights">
                 All Rights Reserved.
             </span>
 
@@ -1176,9 +1022,7 @@
     </footer>
 
 
-
     <script src="script.js"></script>
 
 </body>
-
 </html>
