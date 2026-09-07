@@ -1,7 +1,3 @@
- 
-
-========================================================= */
-
 const GITHUB_OWNER = "Anshu101com";
 const GITHUB_REPO = "mor-panchayat";
 
