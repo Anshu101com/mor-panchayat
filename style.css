@@ -5441,3 +5441,442 @@ img {
     }
 
 }
+
+
+/* =========================================================
+   MOR PANCHAYAT — PERFORMANCE OPTIMIZATION
+   Add this at the VERY END of style.css
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. GLOBAL PERFORMANCE
+--------------------------------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    background: #071713;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Avoid expensive paint effects */
+button,
+a,
+.card,
+.feature-card,
+.release-card,
+.floating-card,
+.phone,
+.brand-logo {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ---------------------------------------------------------
+   2. NAVBAR
+   Remove backdrop blur
+--------------------------------------------------------- */
+
+.navbar {
+    background: transparent !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(5, 15, 12, 0.97) !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    border-color: rgba(49, 214, 154, 0.12) !important;
+}
+
+
+/* ---------------------------------------------------------
+   3. BRAND LOGO
+   Remove continuous shine animation
+--------------------------------------------------------- */
+
+.brand-logo {
+    box-shadow:
+        0 6px 18px rgba(49, 214, 154, 0.10) !important;
+}
+
+.brand-logo::after {
+    display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   4. HERO PHONE GLOW
+   Replace huge blur with simple gradient
+--------------------------------------------------------- */
+
+.phone-glow {
+    width: 280px !important;
+    height: 430px !important;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(49, 214, 154, 0.10) 0%,
+            rgba(49, 214, 154, 0.035) 45%,
+            transparent 72%
+        ) !important;
+
+    filter: none !important;
+
+    animation: none !important;
+
+    opacity: 1 !important;
+}
+
+
+/* ---------------------------------------------------------
+   5. PHONE
+   Smaller shadow + no continuous floating animation
+--------------------------------------------------------- */
+
+.phone {
+    box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.48),
+        0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+
+    animation: none !important;
+
+    will-change: auto;
+}
+
+
+/* ---------------------------------------------------------
+   6. PHONE ORBITS
+   Keep them visually present but completely static
+--------------------------------------------------------- */
+
+.visual-orbit {
+    animation: none !important;
+
+    opacity: 0.45;
+}
+
+.orbit-1 {
+    transform: rotate(-20deg) !important;
+}
+
+.orbit-2 {
+    transform: rotate(20deg) !important;
+}
+
+
+/* ---------------------------------------------------------
+   7. FLOATING BACKGROUND BUBBLES
+   Keep the design but stop continuous movement
+--------------------------------------------------------- */
+
+.floating-bubble {
+    animation: none !important;
+
+    opacity: 0.35;
+}
+
+.bubble-1,
+.bubble-2,
+.bubble-3,
+.bubble-4 {
+    animation: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   8. FLOATING CARDS
+   Remove backdrop-filter + heavy shadow + animation
+--------------------------------------------------------- */
+
+.floating-card {
+    background: rgba(11, 28, 22, 0.96) !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28) !important;
+
+    animation: none !important;
+
+    will-change: auto;
+}
+
+
+/* ---------------------------------------------------------
+   9. PHONE BOTTOM NAV
+--------------------------------------------------------- */
+
+.phone-bottom-nav {
+    background: rgba(8, 20, 16, 0.97) !important;
+}
+
+.phone-bottom-nav .selected {
+    text-shadow: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   10. CARDS
+   Keep depth without giant shadows
+--------------------------------------------------------- */
+
+.release-preview-card,
+.feature-card,
+.security-card,
+.support-card,
+.about-card,
+.release-card {
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.20) !important;
+}
+
+
+/* ---------------------------------------------------------
+   11. REMOVE HEAVY GENERIC BLURS
+--------------------------------------------------------- */
+
+.back-to-top {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    background: rgba(8, 23, 18, 0.96) !important;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* ---------------------------------------------------------
+   12. DECORATIVE GLOWS
+   Keep subtle glow but don't use filter: blur()
+--------------------------------------------------------- */
+
+.glow,
+.glow-1,
+.glow-2,
+.hero-glow,
+.background-glow {
+    filter: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   13. REMOVE EXPENSIVE TEXT GLOW
+--------------------------------------------------------- */
+
+.gradient-text {
+    text-shadow: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   14. ANIMATIONS
+   Keep only short entrance animations
+--------------------------------------------------------- */
+
+.hero-stats,
+.hero-content,
+.hero-visual,
+.section-heading {
+    will-change: auto;
+}
+
+
+/* Disable unnecessary infinite animations */
+.logoShine,
+.phoneGlow,
+.orbitSpin,
+.orbitSpinReverse,
+.bubbleFloat,
+.floatingCard,
+.glowFloat,
+.phoneFloat {
+    animation: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   15. LOADING SPINNER
+   Lightweight spinner
+--------------------------------------------------------- */
+
+.loading-spinner {
+    animation-duration: 0.8s !important;
+}
+
+
+/* ---------------------------------------------------------
+   16. HOVER EFFECTS
+   Use simple transforms instead of glow/shadow changes
+--------------------------------------------------------- */
+
+.feature-card,
+.release-card,
+.mini-card,
+.support-card {
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.feature-card:hover,
+.release-card:hover,
+.mini-card:hover,
+.support-card:hover {
+    transform: translateY(-3px);
+}
+
+
+/* ---------------------------------------------------------
+   17. BUTTONS
+--------------------------------------------------------- */
+
+.btn,
+.download-btn,
+.button {
+    transition:
+        transform 0.15s ease,
+        background-color 0.15s ease;
+}
+
+.btn:hover,
+.download-btn:hover,
+.button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   18. RELEASE LIST
+--------------------------------------------------------- */
+
+.releases-list {
+    contain: layout paint;
+}
+
+.release-card {
+    contain: layout paint;
+}
+
+
+/* ---------------------------------------------------------
+   19. SECTIONS
+--------------------------------------------------------- */
+
+.section {
+    contain: layout;
+}
+
+
+/* ---------------------------------------------------------
+   20. REDUCED MOTION
+   Accessibility + performance
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   21. MOBILE PERFORMANCE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .phone-glow {
+        display: none !important;
+    }
+
+    .visual-orbit {
+        opacity: 0.18 !important;
+    }
+
+    .orbit-2 {
+        display: none !important;
+    }
+
+    .floating-bubble {
+        opacity: 0.15 !important;
+    }
+
+    .floating-card {
+        box-shadow:
+            0 6px 16px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    .phone {
+        box-shadow:
+            0 18px 40px rgba(0, 0, 0, 0.45),
+            0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   22. VERY SMALL DEVICES
+--------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+    .visual-orbit {
+        display: none !important;
+    }
+
+    .floating-bubble {
+        display: none !important;
+    }
+
+    .floating-card {
+        box-shadow:
+            0 5px 14px rgba(0, 0, 0, 0.20) !important;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   23. LOW POWER / LOW PERFORMANCE DEVICES
+--------------------------------------------------------- */
+
+@media (update: slow) {
+
+    .floating-bubble,
+    .visual-orbit,
+    .phone-glow {
+        display: none !important;
+    }
+
+    .floating-card {
+        box-shadow: none !important;
+    }
+}
