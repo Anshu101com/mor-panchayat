@@ -1,10 +1,15 @@
-const GITHUB_OWNER = "Anshu101com";
-const GITHUB_REPO = "mor-panchayat";
+/* =========================================================
+   MOR PANCHAYAT WEBSITE
+   Lightweight / Performance Optimized
+   ========================================================= */
 
 
 /* =========================================================
-   2. GITHUB API
+   1. GITHUB CONFIG
 ========================================================= */
+
+const GITHUB_OWNER = "Anshu101com";
+const GITHUB_REPO = "mor-panchayat";
 
 const GITHUB_API =
     `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;
@@ -17,131 +22,93 @@ const GITHUB_REPOSITORY_PAGE =
 
 
 /* =========================================================
-   3. DOM ELEMENTS
+   2. DOM ELEMENTS
 ========================================================= */
 
 const elements = {
+    navbar: document.getElementById("navbar"),
 
-    navbar:
-        document.getElementById("navbar"),
+    menuButton: document.getElementById("menuButton"),
+    navLinks: document.getElementById("navLinks"),
 
-    menuButton:
-        document.getElementById("menuButton"),
-
-    navLinks:
-        document.getElementById("navLinks"),
-
-    heroVersion:
-        document.getElementById("heroVersion"),
+    heroVersion: document.getElementById("heroVersion"),
 
     latestVersion:
         document.getElementById("latestVersion"),
 
     latestReleaseDescription:
-        document.getElementById(
-            "latestReleaseDescription"
-        ),
+        document.getElementById("latestReleaseDescription"),
 
     latestReleaseDate:
-        document.getElementById(
-            "latestReleaseDate"
-        ),
+        document.getElementById("latestReleaseDate"),
 
     downloadVersion:
-        document.getElementById(
-            "downloadVersion"
-        ),
+        document.getElementById("downloadVersion"),
 
     downloadDate:
-        document.getElementById(
-            "downloadDate"
-        ),
+        document.getElementById("downloadDate"),
 
     downloadFile:
-        document.getElementById(
-            "downloadFile"
-        ),
+        document.getElementById("downloadFile"),
 
     downloadButton:
-        document.getElementById(
-            "downloadButton"
-        ),
+        document.getElementById("downloadButton"),
 
     qrContainer:
-        document.getElementById(
-            "qrContainer"
-        ),
+        document.getElementById("qrContainer"),
 
     qrVersion:
-        document.getElementById(
-            "qrVersion"
-        ),
+        document.getElementById("qrVersion"),
 
     releasesList:
-        document.getElementById(
-            "releasesList"
-        ),
+        document.getElementById("releasesList"),
 
     releasesError:
-        document.getElementById(
-            "releasesError"
-        ),
+        document.getElementById("releasesError"),
 
     retryReleases:
-        document.getElementById(
-            "retryReleases"
-        ),
+        document.getElementById("retryReleases"),
 
     githubReleasesLink:
-        document.getElementById(
-            "githubReleasesLink"
-        ),
+        document.getElementById("githubReleasesLink"),
 
     footerGithubLink:
-        document.getElementById(
-            "footerGithubLink"
-        ),
+        document.getElementById("footerGithubLink"),
 
     footerVersion:
-        document.getElementById(
-            "footerVersion"
-        ),
+        document.getElementById("footerVersion"),
 
     currentYear:
-        document.getElementById(
-            "currentYear"
-        ),
+        document.getElementById("currentYear"),
 
     backToTop:
-        document.getElementById(
-            "backToTop"
-        )
-
+        document.getElementById("backToTop")
 };
 
 
 /* =========================================================
-   4. GLOBAL STATE
+   3. STATE
 ========================================================= */
 
 let releases = [];
-
 let latestRelease = null;
-
 let latestAPK = null;
+
+let releaseRequestRunning = false;
+
+let lastReleaseCheck = 0;
+
+const RELEASE_CACHE_TIME =
+    5 * 60 * 1000;
 
 
 /* =========================================================
-   5. INITIALIZATION
+   4. INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
-
-        initializeWebsite();
-
-    }
+    initializeWebsite
 );
 
 
@@ -167,7 +134,7 @@ async function initializeWebsite() {
 
 
 /* =========================================================
-   6. CURRENT YEAR
+   5. CURRENT YEAR
 ========================================================= */
 
 function setCurrentYear() {
@@ -183,7 +150,7 @@ function setCurrentYear() {
 
 
 /* =========================================================
-   7. NAVIGATION
+   6. NAVIGATION
 ========================================================= */
 
 function setupNavigation() {
@@ -195,15 +162,12 @@ function setupNavigation() {
         return;
     }
 
-
     elements.menuButton.addEventListener(
         "click",
         () => {
 
             const isOpen =
-                elements.navLinks.classList.toggle(
-                    "open"
-                );
+                elements.navLinks.classList.toggle("open");
 
             elements.menuButton.classList.toggle(
                 "open",
@@ -220,55 +184,67 @@ function setupNavigation() {
 
 
     const links =
-        elements.navLinks.querySelectorAll(
-            ".nav-link"
+        elements.navLinks.querySelectorAll(".nav-link");
+
+
+    links.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                elements.navLinks.classList.remove("open");
+
+                elements.menuButton.classList.remove("open");
+
+                elements.menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
         );
 
-
-    links.forEach(
-        (link) => {
-
-            link.addEventListener(
-                "click",
-                () => {
-
-                    elements.navLinks.classList.remove(
-                        "open"
-                    );
-
-                    elements.menuButton.classList.remove(
-                        "open"
-                    );
-
-                    elements.menuButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-            );
-
-        }
-    );
+    });
 
 }
 
 
 /* =========================================================
-   8. SCROLL EFFECTS
+   7. SCROLL EFFECTS
+   Uses requestAnimationFrame to avoid excessive work
 ========================================================= */
 
 function setupScrollEffects() {
 
     updateNavbar();
 
+    updateActiveNavigation();
+
+
+    let ticking = false;
+
+
     window.addEventListener(
         "scroll",
         () => {
 
-            updateNavbar();
+            if (ticking) {
+                return;
+            }
 
-            updateActiveNavigation();
+            ticking = true;
+
+
+            requestAnimationFrame(() => {
+
+                updateNavbar();
+
+                updateActiveNavigation();
+
+                ticking = false;
+
+            });
 
         },
         {
@@ -279,25 +255,20 @@ function setupScrollEffects() {
 }
 
 
+/* =========================================================
+   8. NAVBAR
+========================================================= */
+
 function updateNavbar() {
 
     if (!elements.navbar) {
         return;
     }
 
-    if (window.scrollY > 25) {
-
-        elements.navbar.classList.add(
-            "scrolled"
-        );
-
-    } else {
-
-        elements.navbar.classList.remove(
-            "scrolled"
-        );
-
-    }
+    elements.navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 25
+    );
 
 }
 
@@ -319,123 +290,114 @@ function updateActiveNavigation() {
         );
 
 
+    if (!sections.length || !links.length) {
+        return;
+    }
+
+
     let currentSection = "home";
 
 
-    sections.forEach(
-        (section) => {
+    for (const section of sections) {
 
-            const rect =
-                section.getBoundingClientRect();
-
-            if (
-                rect.top <= 160 &&
-                rect.bottom >= 160
-            ) {
-
-                currentSection =
-                    section.id;
-
-            }
-
-        }
-    );
+        const rect =
+            section.getBoundingClientRect();
 
 
-    links.forEach(
-        (link) => {
+        if (
+            rect.top <= 160 &&
+            rect.bottom >= 160
+        ) {
 
-            const href =
-                link.getAttribute("href");
+            currentSection =
+                section.id;
 
-
-            link.classList.toggle(
-                "active",
-                href ===
-                `#${currentSection}`
-            );
+            break;
 
         }
-    );
+
+    }
+
+
+    links.forEach(link => {
+
+        const href =
+            link.getAttribute("href");
+
+        link.classList.toggle(
+            "active",
+            href === `#${currentSection}`
+        );
+
+    });
 
 }
 
 
 /* =========================================================
-   10. SMOOTH SCROLL
+   10. SMOOTH LINKS
 ========================================================= */
 
 function setupSmoothLinks() {
 
-    document.querySelectorAll(
-        'a[href^="#"]'
-    ).forEach(
-        (link) => {
-
-            link.addEventListener(
-                "click",
-                (event) => {
-
-                    const targetID =
-                        link.getAttribute(
-                            "href"
-                        );
+    const links =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
 
 
-                    if (
-                        !targetID ||
-                        targetID === "#"
-                    ) {
-                        return;
-                    }
+    links.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                const targetID =
+                    link.getAttribute("href");
 
 
-                    const target =
-                        document.querySelector(
-                            targetID
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    const navbarHeight =
-                        elements.navbar
-                            ? elements.navbar.offsetHeight
-                            : 0;
-
-
-                    const targetPosition =
-                        target.getBoundingClientRect()
-                            .top
-                        +
-                        window.scrollY
-                        -
-                        navbarHeight
-                        -
-                        10;
-
-
-                    window.scrollTo({
-
-                        top:
-                            targetPosition,
-
-                        behavior:
-                            "smooth"
-
-                    });
-
+                if (
+                    !targetID ||
+                    targetID === "#"
+                ) {
+                    return;
                 }
-            );
 
-        }
-    );
+
+                const target =
+                    document.querySelector(targetID);
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const navbarHeight =
+                    elements.navbar
+                        ? elements.navbar.offsetHeight
+                        : 0;
+
+
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.scrollY -
+                    navbarHeight -
+                    10;
+
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    });
 
 }
 
@@ -451,23 +413,30 @@ function setupBackToTop() {
     }
 
 
+    let ticking = false;
+
+
     window.addEventListener(
         "scroll",
         () => {
 
-            if (window.scrollY > 600) {
-
-                elements.backToTop.classList.add(
-                    "visible"
-                );
-
-            } else {
-
-                elements.backToTop.classList.remove(
-                    "visible"
-                );
-
+            if (ticking) {
+                return;
             }
+
+            ticking = true;
+
+
+            requestAnimationFrame(() => {
+
+                elements.backToTop.classList.toggle(
+                    "visible",
+                    window.scrollY > 600
+                );
+
+                ticking = false;
+
+            });
 
         },
         {
@@ -481,11 +450,8 @@ function setupBackToTop() {
         () => {
 
             window.scrollTo({
-
                 top: 0,
-
                 behavior: "smooth"
-
             });
 
         }
@@ -501,10 +467,8 @@ function setupBackToTop() {
 function setGitHubLinks() {
 
     if (
-        GITHUB_OWNER ===
-        "YOUR_GITHUB_USERNAME" ||
-        GITHUB_REPO ===
-        "YOUR_REPOSITORY_NAME"
+        GITHUB_OWNER === "YOUR_GITHUB_USERNAME" ||
+        GITHUB_REPO === "YOUR_REPOSITORY_NAME"
     ) {
 
         console.warn(
@@ -538,13 +502,30 @@ function setGitHubLinks() {
    13. LOAD GITHUB RELEASES
 ========================================================= */
 
-async function loadGitHubReleases() {
+async function loadGitHubReleases(
+    force = false
+) {
+
+    if (releaseRequestRunning) {
+        return;
+    }
+
+
+    const now = Date.now();
+
 
     if (
-        GITHUB_OWNER ===
-        "YOUR_GITHUB_USERNAME" ||
-        GITHUB_REPO ===
-        "YOUR_REPOSITORY_NAME"
+        !force &&
+        now - lastReleaseCheck <
+        RELEASE_CACHE_TIME
+    ) {
+        return;
+    }
+
+
+    if (
+        GITHUB_OWNER === "YOUR_GITHUB_USERNAME" ||
+        GITHUB_REPO === "YOUR_REPOSITORY_NAME"
     ) {
 
         showConfigurationError();
@@ -552,6 +533,9 @@ async function loadGitHubReleases() {
         return;
 
     }
+
+
+    releaseRequestRunning = true;
 
 
     showReleaseLoading();
@@ -563,10 +547,14 @@ async function loadGitHubReleases() {
             await fetch(
                 GITHUB_API,
                 {
+                    method: "GET",
+
                     headers: {
                         "Accept":
                             "application/vnd.github+json"
-                    }
+                    },
+
+                    cache: "no-store"
                 }
             );
 
@@ -600,14 +588,13 @@ async function loadGitHubReleases() {
             data
                 .filter(
                     release =>
-                        !release.draft
+                        !release.draft &&
+                        !release.prerelease
                 )
-                .sort(
-                    sortReleases
-                );
+                .sort(sortReleases);
 
 
-        if (releases.length === 0) {
+        if (!releases.length) {
 
             throw new Error(
                 "No published releases found."
@@ -630,6 +617,10 @@ async function loadGitHubReleases() {
 
         updateQRCode();
 
+
+        lastReleaseCheck = Date.now();
+
+
     } catch (error) {
 
         console.error(
@@ -637,7 +628,12 @@ async function loadGitHubReleases() {
             error
         );
 
+
         showReleaseError();
+
+    } finally {
+
+        releaseRequestRunning = false;
 
     }
 
@@ -679,9 +675,7 @@ function findAPK(release) {
 
     if (
         !release ||
-        !Array.isArray(
-            release.assets
-        )
+        !Array.isArray(release.assets)
     ) {
         return null;
     }
@@ -689,32 +683,18 @@ function findAPK(release) {
 
     const apkAssets =
         release.assets.filter(
-            asset => {
-
-                const name =
-                    (
-                        asset.name ||
-                        ""
-                    ).toLowerCase();
-
-
-                return name.endsWith(
-                    ".apk"
-                );
-
-            }
+            asset =>
+                typeof asset.name === "string" &&
+                asset.name
+                    .toLowerCase()
+                    .endsWith(".apk")
         );
 
 
-    if (apkAssets.length === 0) {
+    if (!apkAssets.length) {
         return null;
     }
 
-
-    /*
-       Prefer a release asset whose name
-       contains "release" or "universal".
-    */
 
     const preferred =
         apkAssets.find(
@@ -732,8 +712,7 @@ function findAPK(release) {
         );
 
 
-    return preferred ||
-        apkAssets[0];
+    return preferred || apkAssets[0];
 
 }
 
@@ -750,9 +729,7 @@ function updateLatestRelease() {
 
 
     const version =
-        getVersionName(
-            latestRelease
-        );
+        getVersionName(latestRelease);
 
 
     const date =
@@ -768,9 +745,7 @@ function updateLatestRelease() {
         );
 
 
-    /*
-       HERO
-    */
+    /* HERO */
 
     setText(
         elements.heroVersion,
@@ -778,9 +753,7 @@ function updateLatestRelease() {
     );
 
 
-    /*
-       LATEST RELEASE CARD
-    */
+    /* LATEST RELEASE */
 
     setText(
         elements.latestVersion,
@@ -800,9 +773,7 @@ function updateLatestRelease() {
     );
 
 
-    /*
-       DOWNLOAD CENTER
-    */
+    /* DOWNLOAD */
 
     setText(
         elements.downloadVersion,
@@ -816,9 +787,7 @@ function updateLatestRelease() {
     );
 
 
-    /*
-       FOOTER
-    */
+    /* FOOTER */
 
     setText(
         elements.footerVersion,
@@ -826,9 +795,7 @@ function updateLatestRelease() {
     );
 
 
-    /*
-       QR
-    */
+    /* QR */
 
     setText(
         elements.qrVersion,
@@ -836,38 +803,30 @@ function updateLatestRelease() {
     );
 
 
-    /*
-       APK
-    */
+    /* APK */
 
     if (latestAPK) {
 
         setText(
             elements.downloadFile,
-            formatFileSize(
-                latestAPK.size
-            )
+            formatFileSize(latestAPK.size)
         );
 
 
-        if (
-            elements.downloadButton
-        ) {
+        if (elements.downloadButton) {
 
             elements.downloadButton.href =
                 latestAPK.browser_download_url;
 
-            elements.downloadButton.target =
-                "_blank";
+            elements.downloadButton.target = "_self";
+            
+            elements.downloadButton.removeAttribute("rel");
 
-            elements.downloadButton.rel =
-                "noopener noreferrer";
-
+            elements.downloadButton.setAttribute("download", "");
 
             elements.downloadButton.classList.remove(
                 "disabled"
             );
-
 
             elements.downloadButton.innerHTML = `
                 <span class="download-button-icon">
@@ -893,19 +852,15 @@ function updateLatestRelease() {
         );
 
 
-        if (
-            elements.downloadButton
-        ) {
+        if (elements.downloadButton) {
 
             elements.downloadButton.removeAttribute(
                 "href"
             );
 
-
             elements.downloadButton.classList.add(
                 "disabled"
             );
-
 
             elements.downloadButton.innerHTML = `
                 <span class="download-button-icon">
@@ -934,13 +889,6 @@ function getVersionName(release) {
         return "Unknown";
     }
 
-
-    /*
-       Prefer tag_name.
-
-       Example:
-       v1.0.7
-    */
 
     if (
         release.tag_name &&
@@ -971,12 +919,12 @@ function getVersionName(release) {
    18. RELEASE DESCRIPTION
 ========================================================= */
 
-function getReleaseDescription(
-    release
-) {
+function getReleaseDescription(release) {
 
     if (!release) {
+
         return "Latest Mor Panchayat release.";
+
     }
 
 
@@ -994,10 +942,7 @@ function getReleaseDescription(
         if (clean.length > 150) {
 
             return (
-                clean.substring(
-                    0,
-                    147
-                ) +
+                clean.substring(0, 147) +
                 "..."
             );
 
@@ -1027,16 +972,24 @@ function renderReleaseHistory() {
     }
 
 
-    elements.releasesList.innerHTML = "";
+    if (!releases.length) {
+
+        elements.releasesList.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const fragment =
+        document.createDocumentFragment();
 
 
     releases.forEach(
         (release, index) => {
 
             const version =
-                getVersionName(
-                    release
-                );
+                getVersionName(release);
 
 
             const date =
@@ -1047,21 +1000,15 @@ function renderReleaseHistory() {
 
 
             const apk =
-                findAPK(
-                    release
-                );
+                findAPK(release);
 
 
             const description =
-                getReleaseDescription(
-                    release
-                );
+                getReleaseDescription(release);
 
 
             const item =
-                document.createElement(
-                    "article"
-                );
+                document.createElement("article");
 
 
             item.className =
@@ -1069,16 +1016,12 @@ function renderReleaseHistory() {
 
 
             item.innerHTML = `
-
                 <div class="
                     release-version
                     ${index === 0 ? "latest" : ""}
                 ">
-
                     ${escapeHTML(version)}
-
                 </div>
-
 
                 <div class="release-meta">
 
@@ -1099,7 +1042,6 @@ function renderReleaseHistory() {
 
                 </div>
 
-
                 <div class="release-actions">
 
                     ${
@@ -1112,7 +1054,6 @@ function renderReleaseHistory() {
                         : ""
                     }
 
-
                     ${
                         apk
                         ? `
@@ -1121,8 +1062,7 @@ function renderReleaseHistory() {
                                 href="${escapeAttribute(
                                     apk.browser_download_url
                                 )}"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                download
                             >
                                 ↓ Download
                             </a>
@@ -1130,10 +1070,7 @@ function renderReleaseHistory() {
                         : `
                             <span
                                 class="release-download"
-                                style="
-                                    opacity:0.45;
-                                    cursor:not-allowed;
-                                "
+                                aria-disabled="true"
                             >
                                 APK unavailable
                             </span>
@@ -1141,71 +1078,24 @@ function renderReleaseHistory() {
                     }
 
                 </div>
-
             `;
 
 
-            elements.releasesList.appendChild(
-                item
-            );
+            fragment.appendChild(item);
 
         }
     );
 
 
-    /*
-       Animate release items
-    */
+    elements.releasesList.innerHTML = "";
 
-    animateReleaseItems();
+    elements.releasesList.appendChild(fragment);
 
 }
 
 
 /* =========================================================
-   20. ANIMATE RELEASE ITEMS
-========================================================= */
-
-function animateReleaseItems() {
-
-    const items =
-        document.querySelectorAll(
-            ".release-item"
-        );
-
-
-    items.forEach(
-        (item, index) => {
-
-            item.style.opacity = "0";
-
-            item.style.transform =
-                "translateY(12px)";
-
-
-            setTimeout(
-                () => {
-
-                    item.style.transition =
-                        "opacity .45s ease, transform .45s ease";
-
-                    item.style.opacity = "1";
-
-                    item.style.transform =
-                        "translateY(0)";
-
-                },
-                70 * index
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   21. QR CODE
+   20. QR CODE
 ========================================================= */
 
 function updateQRCode() {
@@ -1223,33 +1113,32 @@ function updateQRCode() {
 
 
     /*
-       We use the QR Server API to generate
-       the QR image dynamically.
-
-       No QR library is required.
+       Smaller QR image = less bandwidth
+       and faster loading.
     */
 
     const qrURL =
-        `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=10&data=${encodeURIComponent(
+        `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=8&data=${encodeURIComponent(
             apkURL
         )}`;
 
 
     elements.qrContainer.innerHTML = `
-
         <img
             src="${escapeAttribute(qrURL)}"
             alt="QR code to download the latest Mor Panchayat APK"
+            width="300"
+            height="300"
             loading="lazy"
+            decoding="async"
         >
-
     `;
 
 }
 
 
 /* =========================================================
-   22. LOADING STATE
+   21. LOADING STATE
 ========================================================= */
 
 function showReleaseLoading() {
@@ -1259,8 +1148,17 @@ function showReleaseLoading() {
     }
 
 
-    elements.releasesList.innerHTML = `
+    /*
+       Don't destroy already loaded releases
+       during background refresh.
+    */
 
+    if (releases.length > 0) {
+        return;
+    }
+
+
+    elements.releasesList.innerHTML = `
         <div class="releases-loading">
 
             <div class="loading-spinner"></div>
@@ -1270,14 +1168,12 @@ function showReleaseLoading() {
             </span>
 
         </div>
-
     `;
 
 
     if (elements.releasesError) {
 
-        elements.releasesError.hidden =
-            true;
+        elements.releasesError.hidden = true;
 
     }
 
@@ -1285,12 +1181,12 @@ function showReleaseLoading() {
 
 
 /* =========================================================
-   23. ERROR STATE
+   22. ERROR STATE
 ========================================================= */
 
 function showReleaseError() {
 
-    if (elements.releasesList) {
+    if (elements.releasesList && !releases.length) {
 
         elements.releasesList.innerHTML = "";
 
@@ -1299,8 +1195,7 @@ function showReleaseError() {
 
     if (elements.releasesError) {
 
-        elements.releasesError.hidden =
-            false;
+        elements.releasesError.hidden = false;
 
     }
 
@@ -1341,9 +1236,7 @@ function showReleaseError() {
     );
 
 
-    if (
-        elements.latestReleaseDescription
-    ) {
+    if (elements.latestReleaseDescription) {
 
         elements.latestReleaseDescription.textContent =
             "Release information is temporarily unavailable.";
@@ -1354,7 +1247,7 @@ function showReleaseError() {
 
 
 /* =========================================================
-   24. CONFIGURATION ERROR
+   23. CONFIGURATION ERROR
 ========================================================= */
 
 function showConfigurationError() {
@@ -1362,7 +1255,6 @@ function showConfigurationError() {
     if (elements.releasesList) {
 
         elements.releasesList.innerHTML = `
-
             <div class="releases-error">
 
                 <div class="error-icon">
@@ -1379,24 +1271,21 @@ function showConfigurationError() {
                 </p>
 
             </div>
-
         `;
 
     }
 
 
-    if (elements.heroVersion) {
-
-        elements.heroVersion.textContent =
-            "Configure GitHub";
-
-    }
+    setText(
+        elements.heroVersion,
+        "Configure GitHub"
+    );
 
 }
 
 
 /* =========================================================
-   25. RETRY BUTTON
+   24. RETRY BUTTON
 ========================================================= */
 
 function setupRetryButton() {
@@ -1410,10 +1299,15 @@ function setupRetryButton() {
         "click",
         async () => {
 
-            elements.releasesError.hidden =
-                true;
+            if (elements.releasesError) {
 
-            await loadGitHubReleases();
+                elements.releasesError.hidden =
+                    true;
+
+            }
+
+
+            await loadGitHubReleases(true);
 
         }
     );
@@ -1422,12 +1316,10 @@ function setupRetryButton() {
 
 
 /* =========================================================
-   26. DATE FORMAT
+   25. DATE FORMAT
 ========================================================= */
 
-function formatDate(
-    dateString
-) {
+function formatDate(dateString) {
 
     if (!dateString) {
         return "Unknown";
@@ -1435,9 +1327,7 @@ function formatDate(
 
 
     const date =
-        new Date(
-            dateString
-        );
+        new Date(dateString);
 
 
     if (
@@ -1464,12 +1354,10 @@ function formatDate(
 
 
 /* =========================================================
-   27. FILE SIZE
+   26. FILE SIZE
 ========================================================= */
 
-function formatFileSize(
-    bytes
-) {
+function formatFileSize(bytes) {
 
     if (
         typeof bytes !== "number" ||
@@ -1482,8 +1370,7 @@ function formatFileSize(
 
 
     const MB =
-        bytes /
-        (1024 * 1024);
+        bytes / (1024 * 1024);
 
 
     if (MB < 1) {
@@ -1497,20 +1384,16 @@ function formatFileSize(
     }
 
 
-    return (
-        `${MB.toFixed(1)} MB`
-    );
+    return `${MB.toFixed(1)} MB`;
 
 }
 
 
 /* =========================================================
-   28. MARKDOWN CLEANER
+   27. MARKDOWN CLEANER
 ========================================================= */
 
-function stripMarkdown(
-    text
-) {
+function stripMarkdown(text) {
 
     return text
 
@@ -1525,7 +1408,7 @@ function stripMarkdown(
         )
 
         .replace(
-            /\!\[.*?\]\(.*?\)/g,
+            /!\[.*?\]\(.*?\)/g,
             ""
         )
 
@@ -1560,13 +1443,10 @@ function stripMarkdown(
 
 
 /* =========================================================
-   29. SET TEXT SAFELY
+   28. SET TEXT
 ========================================================= */
 
-function setText(
-    element,
-    value
-) {
+function setText(element, value) {
 
     if (!element) {
         return;
@@ -1580,12 +1460,10 @@ function setText(
 
 
 /* =========================================================
-   30. HTML ESCAPING
+   29. HTML ESCAPING
 ========================================================= */
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     if (
         value === null ||
@@ -1628,29 +1506,25 @@ function escapeHTML(
 
 
 /* =========================================================
-   31. ATTRIBUTE ESCAPING
+   30. ATTRIBUTE ESCAPING
 ========================================================= */
 
-function escapeAttribute(
-    value
-) {
+function escapeAttribute(value) {
 
-    return escapeHTML(
-        value
-    );
+    return escapeHTML(value);
 
 }
 
 
 /* =========================================================
-   32. DOWNLOAD BUTTON PROTECTION
+   31. DOWNLOAD BUTTON PROTECTION
 ========================================================= */
 
 if (elements.downloadButton) {
 
     elements.downloadButton.addEventListener(
         "click",
-        (event) => {
+        event => {
 
             if (
                 elements.downloadButton.classList.contains(
@@ -1669,12 +1543,8 @@ if (elements.downloadButton) {
 
 
 /* =========================================================
-   33. PAGE VISIBILITY REFRESH
-=========================================================
-
-   If the user leaves the page and returns,
-   check GitHub again.
-
+   32. PAGE VISIBILITY
+   Only refresh if cache is expired
 ========================================================= */
 
 document.addEventListener(
@@ -1682,23 +1552,21 @@ document.addEventListener(
     () => {
 
         if (
-            document.visibilityState ===
-            "visible"
+            document.visibilityState !== "visible"
+        ) {
+            return;
+        }
+
+
+        const now = Date.now();
+
+
+        if (
+            now - lastReleaseCheck >=
+            RELEASE_CACHE_TIME
         ) {
 
-            /*
-               Small delay prevents unnecessary
-               API calls during quick tab switching.
-            */
-
-            setTimeout(
-                () => {
-
-                    loadGitHubReleases();
-
-                },
-                500
-            );
+            loadGitHubReleases();
 
         }
 
@@ -1707,18 +1575,22 @@ document.addEventListener(
 
 
 /* =========================================================
-   34. PERIODIC RELEASE CHECK
-=========================================================
-
-   Check every 10 minutes.
-
+   33. LIGHT PERIODIC CHECK
+   Every 30 minutes instead of 10 minutes
 ========================================================= */
 
 setInterval(
     () => {
 
+        if (
+            document.visibilityState !== "visible"
+        ) {
+            return;
+        }
+
+
         loadGitHubReleases();
 
     },
-    10 * 60 * 1000
+    30 * 60 * 1000
 );
