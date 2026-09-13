@@ -1,0 +1,269 @@
+name: Automatically Update update.json
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "GitHub Release tag"
+        required: true
+        default: "v1.0.82_Beta"
+
+permissions:
+  contents: write
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate update.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          MANUAL_TAG: ${{ inputs.release_tag }}
+          EVENT_NAME: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          python3 <<'PY'
+          import json
+          import os
+          import re
+          import urllib.request
+          import urllib.parse
+          from datetime import datetime
+
+          token = os.environ["GITHUB_TOKEN"]
+          repo = os.environ["REPO"]
+          event_name = os.environ["EVENT_NAME"]
+
+          # ---------------------------------------------------------
+          # Determine release tag
+          # ---------------------------------------------------------
+
+          if event_name == "workflow_dispatch":
+              release_tag = os.environ["MANUAL_TAG"]
+          else:
+              release_tag = os.environ["RELEASE_TAG"]
+
+          if not release_tag:
+              raise Exception("Release tag is missing.")
+
+          print("Release tag:", release_tag)
+
+          # ---------------------------------------------------------
+          # Get release information from GitHub API
+          # ---------------------------------------------------------
+
+          api_url = (
+              f"https://api.github.com/repos/{repo}/releases/tags/"
+              f"{urllib.parse.quote(release_tag, safe='')}"
+          )
+
+          request = urllib.request.Request(
+              api_url,
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Accept": "application/vnd.github+json",
+                  "X-GitHub-Api-Version": "2022-11-28",
+                  "User-Agent": "Mor-Panchayat-Update-Workflow",
+              },
+          )
+
+          with urllib.request.urlopen(request) as response:
+              release = json.loads(response.read().decode())
+
+          release_name = release.get("name", "")
+          release_body = release.get("body", "") or ""
+          release_date = release.get("published_at", "")
+
+          print("Release name:", release_name)
+
+          # ---------------------------------------------------------
+          # Extract version
+          # Supports:
+          # v1.0.82
+          # v1.0.82_Beta
+          # v1.0.8+1_Beta
+          # ---------------------------------------------------------
+
+          version_match = re.search(
+              r"v?(\d+\.\d+\.\d+(?:\+\d+)?)",
+              release_tag
+          )
+
+          if not version_match:
+              version_match = re.search(
+                  r"v?(\d+\.\d+\.\d+(?:\+\d+)?)",
+                  release_name
+              )
+
+          if not version_match:
+              raise Exception(
+                  f"Could not determine version from: {release_tag}"
+              )
+
+          latest_version = version_match.group(1)
+
+          print("Detected version:", latest_version)
+
+          # ---------------------------------------------------------
+          # Find APK
+          # ---------------------------------------------------------
+
+          apk_url = None
+
+          for asset in release.get("assets", []):
+              asset_name = asset.get("name", "")
+
+              if asset_name.lower().endswith(".apk"):
+                  apk_url = asset.get("browser_download_url")
+                  print("APK:", asset_name)
+                  print("APK URL:", apk_url)
+                  break
+
+          if not apk_url:
+              raise Exception(
+                  "No APK asset found in this release."
+              )
+
+          # ---------------------------------------------------------
+          # Read existing update.json
+          # ---------------------------------------------------------
+
+          old_data = {}
+
+          if os.path.exists("update.json"):
+              try:
+                  with open(
+                      "update.json",
+                      "r",
+                      encoding="utf-8"
+                  ) as f:
+                      old_data = json.load(f)
+              except Exception:
+                  print(
+                      "Could not read existing update.json."
+                  )
+
+          # ---------------------------------------------------------
+          # Preserve settings
+          # ---------------------------------------------------------
+
+          minimum_version = old_data.get(
+              "minimumVersion",
+              latest_version
+          )
+
+          critical = old_data.get(
+              "critical",
+              False
+          )
+
+          # ---------------------------------------------------------
+          # Format release date
+          # ---------------------------------------------------------
+
+          formatted_date = ""
+          formatted_time = ""
+
+          if release_date:
+              try:
+                  dt = datetime.fromisoformat(
+                      release_date.replace("Z", "+00:00")
+                  )
+
+                  formatted_date = dt.strftime("%Y-%m-%d")
+                  formatted_time = dt.strftime("%H.%M.%S")
+
+              except Exception as e:
+                  print("Date error:", e)
+
+          # ---------------------------------------------------------
+          # Release notes
+          # ---------------------------------------------------------
+
+          release_notes = []
+
+          for line in release_body.splitlines():
+              line = line.strip()
+
+              if not line:
+                  continue
+
+              line = re.sub(r"^[-*+]\s*", "", line)
+              line = re.sub(r"^\d+[\.\)]\s*", "", line)
+              line = re.sub(r"^#+\s*", "", line)
+
+              line = line.replace("**", "")
+              line = line.replace("__", "")
+              line = line.replace("`", "")
+
+              if line:
+                  release_notes.append(line)
+
+          if not release_notes:
+              release_notes = [
+                  f"Mor Panchayat {latest_version} update"
+              ]
+
+          # ---------------------------------------------------------
+          # Create update.json
+          # ---------------------------------------------------------
+
+          new_data = {
+              "latestVersion": latest_version,
+              "minimumVersion": minimum_version,
+              "critical": critical,
+              "releaseDate": formatted_date,
+              "releaseTime": formatted_time,
+              "apkUrl": apk_url,
+              "releaseNotes": release_notes,
+          }
+
+          with open(
+              "update.json",
+              "w",
+              encoding="utf-8"
+          ) as f:
+              json.dump(
+                  new_data,
+                  f,
+                  indent=2,
+                  ensure_ascii=False
+              )
+              f.write("\n")
+
+          print("\nGenerated update.json:")
+          print(
+              json.dumps(
+                  new_data,
+                  indent=2,
+                  ensure_ascii=False
+              )
+          )
+
+          PY
+
+      - name: Commit and push update.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add update.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to update.json."
+            exit 0
+          fi
+
+          git commit -m "Auto-update update.json for ${GITHUB_REF_NAME}"
+          git push
