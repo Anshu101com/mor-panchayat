@@ -47,7 +47,7 @@
 
 <br><br>
 
-**Latest Version:** `v1.0.7 Beta`
+**Latest Version:** `v1.0.8 Beta`
 
 **Platform:** Android
 
@@ -182,23 +182,6 @@ This allows important information to reach villagers without requiring physical 
 
 ---
 
-# 💬 Community Chat
-
-Mor Panchayat also includes a dedicated communication system.
-
-The planned chat architecture supports:
-
-* 🏛️ Panchayat → Members
-* 👥 Members → Members
-* 👤 Individual conversations
-* 🏘️ Community communication
-* ⚡ Real-time messages
-
-The villager chat interface is currently under active development.
-
-
----
-
 # 🌐 Hindi & English
 
 Mor Panchayat is designed for users who may prefer either Hindi or English.
@@ -254,7 +237,6 @@ Mor Panchayat uses Supabase Realtime for live application updates.
 
 ```text
               ┌─────────────────┐
-              │     SUPABASE    │
               │                 │
               │   PostgreSQL    │
               │      +          │
@@ -292,38 +274,6 @@ Security-related components include:
 
 Sensitive Supabase service-role credentials are **never stored inside the Flutter application**.
 
----
-
-# 🔑 Forgot Password
-
-The villager password recovery flow uses multiple verification steps.
-
-```text
-📱 Mobile Number
-       │
-       ▼
-👤 Name
-       │
-       ▼
-👨 Father's Name
-       │
-       ▼
-🎂 Date of Birth
-       │
-       ▼
-🔐 Verification
-       │
-       ▼
-🔢 OTP
-       │
-       ▼
-🔑 New Password
-       │
-       ▼
-✅ Password Updated
-```
-
-The verification logic is handled through a Supabase Edge Function.
 
 ---
 
