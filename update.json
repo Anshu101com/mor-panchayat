@@ -1,12 +1,12 @@
 {
-  "latestVersion": "1.0.10",
+  "latestVersion": "1.0.11",
   "minimumVersion": "1.0.8",
   "critical": false,
   "releaseDate": "2026-09-16",
   "releaseTime": "00.01.23",
   "apkUrl": "https://github.com/Anshu101com/mor-panchayat/releases/download/v1.0.10_Beta/Mor.Panchayat.v1.0.10-Beta.Pre.Release.apk",
   "releaseNotes": [
-    "Improved villager login",
+    "Completed Sarpanch Section",
     "Fixed session persistence",
     "Improved announcements",
     "Improved performance",
