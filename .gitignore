@@ -10,3 +10,8 @@ git_push.ps1
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Local release files
+release.ps1
+release-notes.md
+*.apk
