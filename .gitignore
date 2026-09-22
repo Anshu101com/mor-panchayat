@@ -1,0 +1,12 @@
+# Local Git helper scripts
+git_push.ps1
+
+# Optional local/private files
+.env
+.env.*
+*.local
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
